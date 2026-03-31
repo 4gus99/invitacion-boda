@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500" viewBox="0 0 1200 1500" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g3" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#FAEAE0"/>
+      <stop offset="100%" stop-color="#A85A4A"/>
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#g3)" />
+  <g opacity="0.16">
+    <ellipse cx="600" cy="540" rx="260" ry="340" fill="#ffffff" />
+  </g>
+  <text x="60" y="1400" font-family="Georgia, serif" font-size="56" fill="#3d211a">Momento emotivo</text>
+</svg>

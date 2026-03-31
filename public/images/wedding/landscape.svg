@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500" viewBox="0 0 1200 1500" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g2" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#F9EDE0"/>
+      <stop offset="100%" stop-color="#B46A4F"/>
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#g2)" />
+  <g opacity="0.12">
+    <rect x="0" y="980" width="1200" height="520" fill="#8a5b3b" />
+    <rect x="0" y="920" width="1200" height="60" fill="#7a4f33" />
+  </g>
+  <text x="60" y="1400" font-family="Georgia, serif" font-size="56" fill="#3e2318">Viñedo al atardecer</text>
+</svg>

@@ -1,0 +1,13 @@
+# Vineyard Warm LUT (small 2x2x2 sample)
+TITLE "Vineyard_Warm_Sample"
+LUT_3D_SIZE 2
+# Order: 8 entries for a 2x2x2 cube (R,G,B corners)
+# Mapping chosen to warm highlights and tint shadows slightly toward burgundy
+0.000000 0.000000 0.000000
+1.000000 0.920000 0.880000
+0.980000 1.000000 0.900000
+1.000000 0.980000 0.900000
+0.950000 0.880000 1.000000
+1.000000 0.920000 1.000000
+0.980000 1.000000 1.000000
+1.000000 0.960000 0.900000
