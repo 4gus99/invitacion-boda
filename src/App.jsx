@@ -724,7 +724,7 @@ useEffect(() => {
     : "Ninguna elegida";
 
   return encodeURIComponent(
-    `Hola, confirmo datos para la boda de Rodo y Vicky.\n\nNombre: ${form.nombre || "-"}\nAsistencia: ${form.asistencia}\nGénero: ${form.genero || "-"}\nRestricciones alimentarias: ${form.restricciones || "Ninguna"}\nCanción sugerida: ${form.cancion || "Ninguna"}\nActividad principal: ${actividadElegida}\nSendero a Cerro Arco: ${form.senderoCerroArco}\nMensaje: ${form.mensaje || "-"}`
+    'Hola! 😊 Qué lindo poder ser parte de este momento. Confirmo mi asistencia a la boda!.\n\nNombre: ${form.nombre || "-"}\nAsistencia: ${form.asistencia}\nGénero: ${form.genero || "-"}\nRestricciones alimentarias: ${form.restricciones || "Ninguna"}\nCanción sugerida: ${form.cancion || "Ninguna"}\nActividad principal: ${actividadElegida}\nSendero a Cerro Arco: ${form.senderoCerroArco}\nMensaje: ${form.mensaje || "-"}`
   );
 }, [form]);
 
