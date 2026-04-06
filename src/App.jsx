@@ -388,14 +388,15 @@ function Card({ children, theme, className = "" }) {
 function CountBox({ label, value, theme }) {
   return (
     <div
-      className="flex flex-col items-center justify-center text-center rounded-[24px] px-2 py-4 sm:px-4 sm:py-5 min-h-[148px] sm:min-h-[160px] w-full"
+      className="flex flex-col items-center justify-center text-center rounded-[20px] px-2 py-3 sm:px-4 sm:py-5 min-h-[55px] sm:min-h-[160px] w-full"
       style={{ background: theme.cardStrong, border: `1px solid ${theme.line}` }}
     >
-      <div className="text-[28px] sm:text-[34px] md:text-[42px] font-serif tracking-[0.04em] leading-none">
+      <div className="text-[28px] sm:text-[34px] md:text-[42px] font-serif tracking-[0.03em] leading-none">
         {value}
       </div>
+
       <div
-        className="mt-3 text-[10px] sm:text-[11px] uppercase tracking-[0.18em] leading-none text-center"
+        className="mt-2 text-[9px] sm:text-[11px] uppercase tracking-[0.16em] sm:tracking-[0.18em] leading-none text-center"
         style={{ color: theme.textSoft }}
       >
         {label}
@@ -636,6 +637,8 @@ export default function App() {
     genero: "",
   });
   const audioRef = useRef(null);
+  const heroRef = useRef(null);
+  const [showMobileCta, setShowMobileCta] = useState(false);
 
  
 
@@ -669,6 +672,25 @@ export default function App() {
     const timeout = setTimeout(() => setCopied(""), 1600);
     return () => clearTimeout(timeout);
   }, [copied]);
+
+  // Mostrar botón fijo mobile solo cuando el hero deja de estar visible
+useEffect(() => {
+  const heroEl = heroRef.current;
+  if (!heroEl) return;
+
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      setShowMobileCta(!entry.isIntersecting);
+    },
+    {
+      threshold: 0.15,
+    }
+  );
+
+  observer.observe(heroEl);
+
+  return () => observer.disconnect();
+}, []);
 
   // Componer mensaje para WhatsApp
   const whatsappMessage = useMemo(() => {
@@ -751,10 +773,7 @@ export default function App() {
       `}</style>
 
       {/* Superposición de pétalos */}
-      <div
-        className="fixed inset-0 pointer-events-none overflow-hidden"
-        style={{ zIndex: 0, opacity: 0.28 }}
-      >
+      <div className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 50, opacity: 0.9 }}>
         {Array.from({ length: 24 }).map((_, i) => (
           <span
             key={i}
@@ -801,7 +820,10 @@ export default function App() {
       </header>
 
       {/* Hero */}
-      <section className="relative min-h-screen pt-28 sm:pt-32 pb-14 sm:pb-20 px-4 sm:px-6 overflow-hidden">
+     <section
+  ref={heroRef}
+  className="relative min-h-screen pt-28 sm:pt-32 pb-14 sm:pb-20 px-4 sm:px-6 overflow-hidden"
+>
         <div
           className="absolute inset-0"
           style={{
@@ -826,7 +848,7 @@ export default function App() {
               <p className="mt-4 max-w-xl text-[15px] sm:text-lg md:text-xl leading-7 sm:leading-8 text-white/82">
                 Un día para celebrar el amor, el vino y todo lo que queremos compartir con ustedes.
               </p>
-              <div className="mt-8 grid grid-cols-4 gap-2 sm:gap-4 max-w-[560px] justify-items-stretch">
+              <div className="mt-25 sm:mt-16 grid grid-cols-4 gap-2 sm:gap-4 max-w-[560px] justify-items-stretch">
                 <CountBox label="Días" value={pad(countdown.days)} theme={theme} />
                 <CountBox label="Horas" value={pad(countdown.hours)} theme={theme} />
                 <CountBox label="Minutos" value={pad(countdown.minutes)} theme={theme} />
@@ -1676,17 +1698,19 @@ export default function App() {
       </section>
 
       {/* Botón fijo para móviles */}
-      <div className="fixed bottom-0 inset-x-0 z-50 sm:hidden p-3">
-        <a
-          href="#rsvp"
-          className="w-full rounded-full px-6 py-4 text-center text-white font-semibold flex items-center justify-center gap-2 shadow-[0_20px_50px_rgba(0,0,0,0.22)]"
-          style={{
-            background: theme.accentStrong,
-          }}
-        >
-          <Sparkles size={16} /> Confirmar asistencia
-        </a>
-      </div>
+      {showMobileCta ? (
+    <div className="fixed bottom-0 inset-x-0 z-50 sm:hidden p-3">
+      <a
+        href="#rsvp"
+        className="w-full rounded-full px-6 py-4 text-center text-white font-semibold flex items-center justify-center gap-2 shadow-[0_20px_50px_rgba(0,0,0,0.22)]"
+        style={{
+          background: theme.accentStrong,
+        }}
+      >
+        <Sparkles size={16} /> Confirmar asistencia
+      </a>
+    </div>
+  ) : null}
     </div>
   );
 }
