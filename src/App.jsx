@@ -652,18 +652,24 @@ export default function App() {
 
   // Controlar reproducción de música
   useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-    if (musicOn) {
-      audio.volume = 0.18;
-      const promise = audio.play();
-      if (promise && typeof promise.catch === "function") {
-        promise.catch(() => setMusicOn(false));
-      }
-    } else {
-      audio.pause();
+  const audio = audioRef.current;
+  if (!audio) return;
+
+  audio.volume = 0.18;
+
+  const tryPlay = async () => {
+    try {
+      await audio.play();
+      setMusicOn(true);
+    } catch {
+      setMusicOn(false);
     }
-  }, [musicOn]);
+  };
+
+  tryPlay();
+}, []);
+
+
 
 
   // Limpiar mensaje de copiado después de un tiempo
@@ -730,7 +736,14 @@ useEffect(() => {
       }}
     >
       {/* Audio de fondo */}
-      <audio ref={audioRef} src={MUSIC_URL} loop preload="auto" playsInline />
+      <audio
+        ref={audioRef}
+        src={MUSIC_URL}
+        loop
+        preload="auto"
+        playsInline
+        autoPlay
+      />
 
       {/* Estilos globales y animaciones */}
       <style>{`
@@ -800,7 +813,7 @@ useEffect(() => {
         >
           <div className="flex items-center gap-2 min-w-0">
             <Heart size={16} />
-            <span className="text-sm sm:text-[15px] truncate">Rodo & Vicky</span>
+            <span className="text-sm sm:text-[40px] truncate">Rodo & Vicky</span>
           </div>
           <div className="flex items-center gap-2">
             <button
@@ -821,9 +834,9 @@ useEffect(() => {
 
       {/* Hero */}
      <section
-  ref={heroRef}
-  className="relative min-h-screen pt-28 sm:pt-32 pb-14 sm:pb-20 px-4 sm:px-6 overflow-hidden"
->
+        ref={heroRef}
+        className="relative min-h-screen pt-20 sm:pt-28 pb-14 sm:pb-20 px-4 sm:px-6 overflow-hidden"
+      >
         <div
           className="absolute inset-0"
           style={{
@@ -836,15 +849,15 @@ useEffect(() => {
           className="absolute inset-0"
           style={{ backgroundColor: theme.heroOverlay }}
         />
-        <div className="relative z-10 max-w-7xl mx-auto flex items-center min-h-[calc(100vh-7rem)]">
+       <div className="relative z-10 max-w-7xl mx-auto flex items-start min-h-[calc(100vh-7rem)] pt-0 sm:pt-4">
           <Reveal>
             <div className="max-w-3xl">
-              <p className="uppercase tracking-[0.35em] text-[11px] sm:text-xs text-white/70">
-                9 de enero · Mendoza
-              </p>
               <h1 className="mt-4 font-serif text-[52px] leading-[0.9] tracking-[0.02em] sm:text-[78px] md:text-[118px] text-white font-[600]">
                 Rodo & Vicky
               </h1>
+              <p className="uppercase tracking-[0.35em] text-[11px] sm:text-xs text-white/70">
+                9 de enero · Mendoza
+              </p>
               <p className="mt-4 max-w-xl text-[15px] sm:text-lg md:text-xl leading-7 sm:leading-8 text-white/82">
                 Un día para celebrar el amor, el vino y todo lo que queremos compartir con ustedes.
               </p>
