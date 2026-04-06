@@ -304,7 +304,6 @@ const mendozaImages = [
   "/images/wedding/mendoza14.jpg",
   "/images/wedding/mendoza4.jpg",
   "/images/wedding/mendoza11.jpg",
-  "/images/wedding/mendoza3.jpg",
   "/images/wedding/mendoza6.jpg",
 ];
 const secondCarouselImages = [
@@ -786,23 +785,52 @@ useEffect(() => {
         }
       `}</style>
 
-      {/* Superposición de pétalos */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 50, opacity: 0.9 }}>
-        {Array.from({ length: 24 }).map((_, i) => (
-          <span
-            key={i}
-            className="petal"
-            style={{
+      
+            {/* Superposición de pétalos */}
+        <div
+          className="fixed inset-0 pointer-events-none overflow-hidden"
+          style={{ zIndex: 8, opacity: 0.9 }}
+        >
+          {[
+            ...Array.from({ length: 24 }).map((_, i) => ({
+              id: `primera-${i}`,
               left: `${(i * 17) % 100}%`,
-              animationDuration: `${10 + (i % 8) * 2}s`,
-              animationDelay: `${(i % 9) * 0.5}s`,
-              ['--drift']: `${-40 + (i % 7) * 14}px`,
-              transform: `scale(${0.65 + (i % 5) * 0.16})`,
-            }}
-          />
-        ))}
-      </div>
-
+              duration: `${10 + (i % 8) * 2}s`,
+              delay: `${(i % 9) * 0.5}s`,
+              drift: `${-40 + (i % 7) * 14}px`,
+              scale: `${0.65 + (i % 5) * 0.16}`,
+            })),
+            ...Array.from({ length: 21 }).map((_, i) => ({
+              id: `segunda-${i}`,
+              left: `${(i * 19 + 7) % 100}%`,
+              duration: `${12 + (i % 7) * 2}s`,
+              delay: `${12 + (i % 8) * 0.8}s`,
+              drift: `${-34 + (i % 6) * 12}px`,
+              scale: `${0.62 + (i % 4) * 0.15}`,
+            })),
+            ...Array.from({ length: 17 }).map((_, i) => ({
+              id: `tercera-${i}`,
+              left: `${(i * 23 + 11) % 100}%`,
+              duration: `${14 + (i % 6) * 2}s`,
+              delay: `${24 + (i % 7) * 1}s`,
+              drift: `${-28 + (i % 5) * 11}px`,
+              scale: `${0.58 + (i % 4) * 0.14}`,
+            })),
+          ].map((petal) => (
+            <span
+              key={petal.id}
+              className="petal"
+              style={{
+                left: petal.left,
+                animationDuration: petal.duration,
+                animationDelay: petal.delay,
+                ['--drift']: petal.drift,
+                transform: `scale(${petal.scale})`,
+              }}
+            />
+          ))}
+        </div>
+        
       {/* Cabecera */}
       <header className="fixed top-0 inset-x-0 z-40 px-3 pt-3 sm:px-5 sm:pt-5">
         <div
