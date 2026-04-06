@@ -20,7 +20,6 @@ import {
   Heart,
   Send,
   Sparkles,
-  Utensils,
 } from "lucide-react";
 
 // Fecha fija de la bodas
@@ -28,7 +27,6 @@ const EVENT_DATE = new Date("2027-01-09T11:00:00");
 
 // Datos de contacto. Reemplazar con valores reales antes de publicar.
 const RSVP_PHONE = "5492901309424";
-const RSVP_FORM_URL = "#";
 const MAP_URL =
   "https://www.google.com/maps/place/Caba%C3%B1as+Pacar%C3%AD+Tamp%C3%BA/@-32.8533001,-68.8958719,3a,75y,90t/data=!3m8!1e2!3m6!1sAF1QipOR1aDQGhlCQQATDaaT2c9CIsDR8BBy4QFee2Ba!2e10!3e12!6shttps:%2F%2Flh3.googleusercontent.com%2Fp%2FAF1QipOR1aDQGhlCQQATDaaT2c9CIsDR8BBy4QFee2Ba%3Dw203-h152-k-no!7i2240!8i1680!4m10!3m9!1s0x967e08060b4dc929:0xf27b0a8b70ae5093!5m2!4m1!1i2!8m2!3d-32.853288!4d-68.8956999!10e5!16s%2Fg%2F11b6dh6xkp!18m1!1e1?entry=ttu&g_ep=EgoyMDI2MDQwMS4wIKXMDSoASAFQAw%3D%3D";
 const MUSIC_URL = "/music/musica.mp3";
@@ -51,7 +49,10 @@ const theme = {
   card: "rgba(255,255,255,0.56)",
   cardStrong: "rgba(255,255,255,0.84)",
   chip: "#f3ebfa",
-  heroOverlay: "rgba(25,18,32,0.44)",
+  // Ajustamos la superposición del hero para permitir que la fotografía brille
+  // más y mantenga el tono lila característico. Un tono más claro ayuda a
+  // equilibrar el contraste.
+  heroOverlay: "rgba(67,37,83,0.40)",
 };
 
 // Contenido principal
@@ -832,7 +833,7 @@ useEffect(() => {
         </div>
       </header>
 
-      {/* Hero */}
+       {/* Hero */}
       <section
         ref={heroRef}
         className="relative min-h-screen px-4 sm:px-6 pt-20 sm:pt-28 pb-3 sm:pb-6 overflow-hidden"
@@ -841,8 +842,8 @@ useEffect(() => {
           className="absolute inset-0"
           style={{
             backgroundImage: "url(/images/wedding/aero.jpg)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
           }}
         />
         <div
@@ -1028,9 +1029,9 @@ useEffect(() => {
               <div className="grid md:grid-cols-[0.95fr_1.05fr] h-full">
                 <div className="relative min-h-[280px] md:min-h-full">
                   <img
-                    src="/images/wedding/pareja.png"
-                    alt="Rodo y Vicky"
-                    className="absolute inset-0 w-full h-full object-cover"
+                    src="/images/wedding/pareja.jpg"
+                    alt="Hero"
+                    className="absolute inset-0 w-full h-full object-cover object-[center_22%]"
                   />
                 </div>
                 <div className="p-6 sm:p-8 lg:p-10">
@@ -1593,7 +1594,7 @@ useEffect(() => {
                       ))}
                     </div>
                   </div>
-                  <div className="mt-6 flex flex-col sm:flex-row gap-3">
+                <div className="mt-6 flex flex-col sm:flex-row gap-3">
   <button
     type="button"
     onClick={() => {
@@ -1619,24 +1620,8 @@ useEffect(() => {
     <Send size={16} />
     Confirmar por WhatsApp
   </button>
-
-  <a
-    href={RSVP_FORM_URL}
-    target="_blank"
-    rel="noreferrer"
-    className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-4 text-[15px] sm:text-base font-semibold"
-    style={{
-      background: theme.cardStrong,
-      border: `1px solid ${theme.line}`,
-    }}
-  >
-    <Utensils size={16} />
-    Abrir formulario RSVP
-  </a>
 </div>
-                  <p className="mt-4 text-sm leading-6" style={{ color: theme.textSoft }}>
-                    Reemplazá el link del formulario cuando lo tengas conectado a Google Forms, Sheets o la opción que prefieras.
-                  </p>
+                 
                 </div>
               </div>
             </Card>

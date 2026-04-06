@@ -1,1 +1,24 @@
 @import "tailwindcss";
+
+/* Importación de tipografías decorativas desde Google Fonts.
+   Utilizamos 'Great Vibes' para nombres y títulos especiales y 'Playfair Display'
+   para el cuerpo y encabezados principales. Estas tipografías están sujetas
+   a la disponibilidad de la conexión. En caso de no cargarse, el navegador
+   recurrirá a fuentes de sistema estándar. */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600;700&display=swap');
+
+body {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Clase utilitaria para textos decorativos. Si deseas aplicar esta
+   tipografía a otros elementos, agrega la clase `font-decorative` al
+   componente. */
+.font-decorative {
+  font-family: 'Great Vibes', cursive;
+}
+
+/* Importación de la tipografía caligráfica utilizada para el nombre en el hero.
+   Se carga desde Google Fonts. Si la conexión no está disponible, el navegador
+   usará una fuente cursiva genérica. */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
