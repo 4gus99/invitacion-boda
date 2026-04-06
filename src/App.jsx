@@ -1075,7 +1075,7 @@ useEffect(() => {
               <div className="grid md:grid-cols-[0.95fr_1.05fr] h-full">
                 <div className="relative min-h-[280px] md:min-h-full">
                   <img
-                    src="/images/wedding/pareja.jpg"
+                    src="/images/wedding/moment.jpg"
                     alt="Hero"
                     className="absolute inset-0 w-full h-full object-cover object-[center_22%]"
                   />
