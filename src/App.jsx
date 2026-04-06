@@ -853,19 +853,18 @@ useEffect(() => {
         <div className="relative z-10 max-w-7xl mx-auto min-h-[calc(100svh-6rem)] flex flex-col justify-between">
           <Reveal>
             <div className="max-w-3xl pt-2 sm:pt-4">
-              <h1 className="mt-4 font-serif text-[52px] leading-[0.9] tracking-[0.02em] sm:text-[78px] md:text-[118px] text-white font-[600]">
-                Rodo & Vicky
-              </h1>
+            <h1 className="mt-4 font-serif text-[52px] leading-[0.9] tracking-[0.02em] sm:text-[78px] md:text-[118px] text-white font-[600]">
+              Rodo & Vicky
+            </h1>
 
-              <p className="uppercase tracking-[0.35em] text-[11px] sm:text-xs text-white/70">
-                9 de enero · Mendoza
-              </p>
+            <p className="uppercase tracking-[0.35em] text-[11px] sm:text-xs text-white/70">
+              9 de enero · Mendoza
+            </p>
 
-              <p className="mt-4 max-w-xl text-[15px] sm:text-lg md:text-xl leading-7 sm:leading-8 text-white/82">
-                Un día para celebrar el amor, el vino y todo lo que queremos compartir con ustedes.
-              </p>
-            </div>
-            </div>
+            <p className="mt-4 max-w-xl text-[15px] sm:text-lg md:text-xl leading-7 sm:leading-8 text-white/82">
+              Un día para celebrar el amor, el vino y todo lo que queremos compartir con ustedes.
+            </p>
+          </div>
           </Reveal>
 
           <Reveal delay={0.08}>
