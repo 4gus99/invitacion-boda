@@ -841,8 +841,8 @@ useEffect(() => {
           className="absolute inset-0"
           style={{
             backgroundImage: "url(/images/wedding/aero.jpg)",
-            backgroundSize: '220%',
-            backgroundPosition: 'center',
+            backgroundSize: "cover",
+            backgroundPosition: "center",
           }}
         />
         <div
@@ -865,6 +865,7 @@ useEffect(() => {
 
           <Reveal delay={0.08}>
             <div className="w-full pb-1 sm:pb-2 mt-auto-[-12]">
+
               <div className="grid grid-cols-4 gap-2 sm:gap-4 max-w-[560px] justify-items-stretch">
                 <CountBox label="Días" value={pad(countdown.days)} theme={theme} />
                 <CountBox label="Horas" value={pad(countdown.hours)} theme={theme} />
