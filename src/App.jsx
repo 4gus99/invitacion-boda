@@ -865,9 +865,6 @@ useEffect(() => {
 
           <Reveal delay={0.08}>
             <div className="w-full pb-1 sm:pb-2 mt-auto-[-12]">
-              <p className="mt-4 max-w-xl text-[15px] sm:text-lg md:text-xl leading-7 sm:leading-8 text-white/82">
-              Un día para celebrar el amor, el vino y todo lo que queremos compartir con ustedes.
-            </p>
               <div className="grid grid-cols-4 gap-2 sm:gap-4 max-w-[560px] justify-items-stretch">
                 <CountBox label="Días" value={pad(countdown.days)} theme={theme} />
                 <CountBox label="Horas" value={pad(countdown.hours)} theme={theme} />
