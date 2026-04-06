@@ -31,7 +31,7 @@ const RSVP_PHONE = "5492901309424";
 const RSVP_FORM_URL = "#";
 const MAP_URL =
   "https://www.google.com/maps/place/Caba%C3%B1as+Pacar%C3%AD+Tamp%C3%BA/@-32.8533001,-68.8958719,3a,75y,90t/data=!3m8!1e2!3m6!1sAF1QipOR1aDQGhlCQQATDaaT2c9CIsDR8BBy4QFee2Ba!2e10!3e12!6shttps:%2F%2Flh3.googleusercontent.com%2Fp%2FAF1QipOR1aDQGhlCQQATDaaT2c9CIsDR8BBy4QFee2Ba%3Dw203-h152-k-no!7i2240!8i1680!4m10!3m9!1s0x967e08060b4dc929:0xf27b0a8b70ae5093!5m2!4m1!1i2!8m2!3d-32.853288!4d-68.8956999!10e5!16s%2Fg%2F11b6dh6xkp!18m1!1e1?entry=ttu&g_ep=EgoyMDI2MDQwMS4wIKXMDSoASAFQAw%3D%3D";
-const MUSIC_URL = "public/music/musica.mp3";
+const MUSIC_URL = "/music/musica.mp3";
 const WHATSAPP_GROUP_BOYS =
   "https://chat.whatsapp.com/KCiORDv1gg649f8Go7SGO9?mode=gi_t";
 
@@ -199,7 +199,7 @@ const activities = [
     title: "Cabalgata",
     subtitle: "Elegí una opción",
     text: "Un paseo tranquilo para disfrutar la montaña y el paisaje mendocino.",
-    meta: "Suave · 2 hs · con reserva",
+    //meta: "Suave · 2 hs · con reserva",
     icon: Trees,
     image: "/images/wedding/cabalgata.jpg",
   },
@@ -208,7 +208,7 @@ const activities = [
     title: "Rafting",
     subtitle: "Elegí una opción",
     text: "Plan aventurero, divertido y más intenso para quienes quieran adrenalina.",
-    meta: "Alto · 3 hs · con reserva",
+    //meta: "Alto · 3 hs · con reserva",
     icon: Waves,
     image: "/images/wedding/rafting.jpg",
   },
@@ -217,7 +217,7 @@ const activities = [
     title: "Termas",
     subtitle: "Elegí una opción",
     text: "Una experiencia más relajada para descansar, disfrutar y compartir un momento tranquilo.",
-    meta: "Relax · medio día · con reserva",
+    //meta: "Relax",
     icon: Wine,
     image: "/images/wedding/termas.jpg",
   },
@@ -226,7 +226,7 @@ const activities = [
   title: "Tirolesa",
   subtitle: "Elegí una opción",
   text: "Una experiencia aérea llena de adrenalina, ideal para quienes quieren algo distinto y divertido.",
-  meta: "Medio/alto · 2 hs · con reserva",
+  //meta: "Medio/alto · 2 hs ",
   icon: Mountain,
   image: "/images/wedding/tirolesa.jpg",
 },
@@ -236,7 +236,7 @@ const stayInfo = [
   {
     icon: BedDouble,
     title: "Hospedaje",
-    text: "Pronto vamos a compartir opciones sugeridas según presupuesto y distancia.",
+    text: "El hospedaje está incluido en Cabañas Pacarí Tampú. El check-in será el 12 de enero y la despedida el 16 de enero.",
   },
   {
     icon: CarTaxiFront,
@@ -260,23 +260,39 @@ const transferData = [
 const faqs = [
   {
     q: "¿Hasta cuándo puedo confirmar asistencia?",
-    a: "Idealmente hasta 30 días antes del evento, así podemos cerrar organización, mesa y actividades.",
+    a: "Les agradeceremos confirmar su asistencia idealmente hasta 120 días antes del evento, para que podamos organizar cada detalle con tiempo.",
   },
   {
-    q: "¿Puedo ir con acompañante?",
-    a: "Si tu invitación contempla acompañante, vas a poder indicarlo en el RSVP o por WhatsApp.",
+    q: "¿La invitación es individual?",
+    a: "Sí, cada invitación ha sido pensada de manera individual. Si desean asistir con un acompañante, les pedimos que lo coordinen previamente con nosotros.",
   },
   {
-    q: "¿Hay restricciones alimentarias?",
-    a: "Sí. En la confirmación podés indicarnos alergias, intolerancias o preferencias alimentarias.",
+    q: "¿El hospedaje está incluido?",
+    a: "Sí, el hospedaje estará incluido en Cabañas Pacarí Tampú, del 12 al 16 de enero.",
   },
   {
-    q: "¿Cómo va a ser el dress code?",
-    a: "Elegante de día. Recomendamos tonos suaves, tierra, vino, nude o negro. Evitá looks demasiado deportivos.",
+    q: "¿Qué comodidades tendrá el alojamiento?",
+    a: "Las cabañas cuentan con Wi-Fi gratuito, estacionamiento sin costo, piscina al aire libre, aire acondicionado y cocina en todas las unidades.",
+  },
+  {
+    q: "¿El hospedaje incluye comidas?",
+    a: "Si, aunque cada cabaña dispone de cocina para mayor comodidad, el alojamiento no incluye desayuno ni restaurante,",
+  },
+  {
+    q: "¿Habrá traslado desde o hacia el aeropuerto?",
+    a: "No, el alojamiento no cuenta con servicio de traslado, por lo que recomendamos organizarlo con anticipación.",
+  },
+  {
+    q: "¿Puedo informar restricciones alimentarias?",
+    a: "Sí. Al confirmar asistencia podrán indicarnos alergias, intolerancias o preferencias alimentarias.",
+  },
+  {
+    q: "¿Cómo será el dress code?",
+    a: "Elegante de día, en tonos neutros y cálidos como beige, arena, nude o tierra.",
   },
   {
     q: "¿Qué calzado conviene llevar?",
-    a: "Como parte del evento será al aire libre, conviene priorizar comodidad y evitar opciones muy incómodas para terreno natural.",
+    a: "Recomendamos priorizar comodidad, especialmente para disfrutar de espacios al aire libre y terreno natural.",
   },
 ];
 
@@ -372,14 +388,14 @@ function Card({ children, theme, className = "" }) {
 function CountBox({ label, value, theme }) {
   return (
     <div
-      className="rounded-[24px] px-3 py-4 sm:px-4 sm:py-5 text-center"
+      className="flex flex-col items-center justify-center text-center rounded-[24px] px-2 py-4 sm:px-4 sm:py-5 min-h-[148px] sm:min-h-[160px] w-full"
       style={{ background: theme.cardStrong, border: `1px solid ${theme.line}` }}
     >
-      <div className="text-[28px] sm:text-[34px] md:text-[42px] font-serif tracking-[0.08em]">
+      <div className="text-[28px] sm:text-[34px] md:text-[42px] font-serif tracking-[0.04em] leading-none">
         {value}
       </div>
       <div
-        className="mt-1 text-[10px] sm:text-[11px] uppercase tracking-[0.22em]"
+        className="mt-3 text-[10px] sm:text-[11px] uppercase tracking-[0.18em] leading-none text-center"
         style={{ color: theme.textSoft }}
       >
         {label}
@@ -735,7 +751,10 @@ export default function App() {
       `}</style>
 
       {/* Superposición de pétalos */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 50, opacity: 0.9 }}>
+      <div
+        className="fixed inset-0 pointer-events-none overflow-hidden"
+        style={{ zIndex: 0, opacity: 0.28 }}
+      >
         {Array.from({ length: 24 }).map((_, i) => (
           <span
             key={i}
@@ -807,7 +826,7 @@ export default function App() {
               <p className="mt-4 max-w-xl text-[15px] sm:text-lg md:text-xl leading-7 sm:leading-8 text-white/82">
                 Un día para celebrar el amor, el vino y todo lo que queremos compartir con ustedes.
               </p>
-              <div className="mt-8 grid grid-cols-4 gap-2 sm:gap-4 max-w-[560px]">
+              <div className="mt-8 grid grid-cols-4 gap-2 sm:gap-4 max-w-[560px] justify-items-stretch">
                 <CountBox label="Días" value={pad(countdown.days)} theme={theme} />
                 <CountBox label="Horas" value={pad(countdown.hours)} theme={theme} />
                 <CountBox label="Minutos" value={pad(countdown.minutes)} theme={theme} />
