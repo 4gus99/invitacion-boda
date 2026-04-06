@@ -4,458 +4,721 @@ import {
   CalendarHeart,
   Clock3,
   MapPin,
-  Wine,
-  Music4,
   Shirt,
-  Heart,
-  ChevronDown,
-  Sparkles,
-  Send,
-  Flower2,
-  MoonStar,
-  SunMedium,
-  Palette,
-  Copy,
-  Check,
+  Wine,
   Trees,
   Waves,
   Mountain,
-  Activity,
-  Footprints,
+  BedDouble,
+  CarTaxiFront,
+  CloudSun,
+  Gift,
+  Check,
+  ChevronDown,
+  Volume2,
+  VolumeX,
+  Heart,
+  Send,
+  Sparkles,
   Utensils,
-  PartyPopper,
 } from "lucide-react";
 
+// Fecha fija de la bodas
 const EVENT_DATE = new Date("2027-01-09T11:00:00");
+
+// Datos de contacto. Reemplazar con valores reales antes de publicar.
 const RSVP_PHONE = "5492901309424";
-const RSVP_FORM_URL = "#"; // Reemplazar por el link del formulario conectado a Excel/Sheets
+const RSVP_FORM_URL = "#";
 const MAP_URL =
-  "https://www.google.com/maps/search/?api=1&query=Calle+Fray+Mamerto+Esquiu+Lujan+de+Cuyo+Mendoza";
-const CERRO_ARCO_URL = "https://www.google.com/maps/search/?api=1&query=Cerro+Arco+Mendoza";
-const MUSIC_URL =
-  "https://cdn.pixabay.com/download/audio/2023/03/02/audio_8b6d5d1c3a.mp3?filename=romantic-background-141997.mp3";
-// Splash background: put your photo at public/splash-bg.jpg to use it here.
-const SPLASH_BG = "/splash-bg.jpg";
+  "https://www.google.com/maps/place/Caba%C3%B1as+Pacar%C3%AD+Tamp%C3%BA/@-32.8533001,-68.8958719,3a,75y,90t/data=!3m8!1e2!3m6!1sAF1QipOR1aDQGhlCQQATDaaT2c9CIsDR8BBy4QFee2Ba!2e10!3e12!6shttps:%2F%2Flh3.googleusercontent.com%2Fp%2FAF1QipOR1aDQGhlCQQATDaaT2c9CIsDR8BBy4QFee2Ba%3Dw203-h152-k-no!7i2240!8i1680!4m10!3m9!1s0x967e08060b4dc929:0xf27b0a8b70ae5093!5m2!4m1!1i2!8m2!3d-32.853288!4d-68.8956999!10e5!16s%2Fg%2F11b6dh6xkp!18m1!1e1?entry=ttu&g_ep=EgoyMDI2MDQwMS4wIKXMDSoASAFQAw%3D%3D";
+const MUSIC_URL = "public/music/musica.mp3";
+const WHATSAPP_GROUP_BOYS =
+  "https://chat.whatsapp.com/KCiORDv1gg649f8Go7SGO9?mode=gi_t";
 
-const venuePhotos = [
-  { src: "/images/wedding/table.jpg", title: "Mesa elegante en la viña" },
-  { src: "/images/wedding/landscape.jpg", title: "Viñedo al atardecer" },
-  { src: "/images/wedding/moment.jpg", title: "Momento emotivo" },
-  { src: "/images/wedding/bouquet.jpg", title: "Ramo delicado" },
-];
-
-const themes = {
-  rose: {
-    name: "Rosa Vino",
-    bg: "#f8f2f3",
-    bg2: "#efe2e5",
-    text: "#4d2330",
-    soft: "#8c5b6a",
-    accent: "#b86d86",
-    accent2: "#6f2c43",
-    card: "rgba(255,255,255,0.55)",
-    border: "rgba(255,255,255,0.68)",
-  },
-  lilac: {
-    name: "Lila Seda",
-    bg: "#f6f1fb",
-    bg2: "#e9def6",
-    text: "#432953",
-    soft: "#7d6193",
-    accent: "#bb95da",
-    accent2: "#5d3f75",
-    card: "rgba(255,255,255,0.56)",
-    border: "rgba(255,255,255,0.70)",
-  },
-  ivory: {
-    name: "Marfil Bodega",
-    bg: "#fbf7f0",
-    bg2: "#efe3d3",
-    text: "#4b3526",
-    soft: "#866650",
-    accent: "#d3ad81",
-    accent2: "#6c4a2a",
-    card: "rgba(255,255,255,0.58)",
-    border: "rgba(255,255,255,0.72)",
-  },
-  night: {
-    name: "Noche Cabernet",
-    bg: "#1d1320",
-    bg2: "#311927",
-    text: "#f7edf2",
-    soft: "#d2bcc7",
-    accent: "#c97a98",
-    accent2: "#f2d6df",
-    card: "rgba(255,255,255,0.08)",
-    border: "rgba(255,255,255,0.14)",
-  },
+const WHATSAPP_GROUP_GIRLS =
+  "https://chat.whatsapp.com/HjmP9uVvbfk9BFc2BzdAFd?mode=gi_t";
+// Paleta única inspirada en la primera versión de la página (lila seda)
+const theme = {
+  name: "Lila Seda",
+  pageBg: "#f6f1fb",
+  pageBg2: "#e9def6",
+  text: "#432953",
+  textSoft: "#7d6193",
+  accent: "#bb95da",
+  accentStrong: "#5d3f75",
+  accentSoft: "#efe3fb",
+  line: "rgba(67,37,83,0.12)",
+  card: "rgba(255,255,255,0.56)",
+  cardStrong: "rgba(255,255,255,0.84)",
+  chip: "#f3ebfa",
+  heroOverlay: "rgba(25,18,32,0.44)",
 };
 
-const schedule = [
+// Contenido principal
+// Cronograma del día de la ceremonia. Esta agenda se muestra en la sección "El día".
+const timeline = [
   {
-    time: "11:00 hs",
-    title: "Ceremonia civil",
-    text: "Nuestro primer sí del día, íntimo y lleno de emoción.",
+    time: "10:00 hs",
+    title: "Recepción",
+    text: "Recibimos a todos nuestros invitados para comenzar la celebración.",
   },
   {
-    time: "13:00 hs",
-    title: "Celebración",
-    text: "Comida, abrazos, brindis y mucha alegría compartida.",
+    time: "12:00 hs",
+    title: "Ceremonia",
+    text: "La boda se celebra con emoción y amor, nuestro momento del sí.",
   },
   {
-    time: "18:30 hs",
-    title: "Golden hour",
-    text: "Fotos, vino, música suave y una tarde mendocina soñada.",
+    time: "14:00 hs",
+    title: "Almuerzo",
+    text: "Disfrutamos de un almuerzo especial para brindar y compartir juntos.",
   },
   {
-    time: "21:00 hs",
-    title: "Fiesta",
-    text: "A bailar, celebrar y disfrutar hasta la madrugada.",
+    time: "16:00 hs",
+    title: "Torta",
+    text: "Cortamos la torta y compartimos un dulce momento.",
+  },
+  {
+    time: "17:00 hs",
+    title: "Juegos",
+    text: "Proponemos juegos divertidos para seguir celebrando y reír sin parar.",
+  },
+  {
+    time: "19:00 hs",
+    title: "Show de máscaras, música y joda",
+    text: "Un cierre espectacular con música, máscaras y mucha fiesta.",
   },
 ];
 
-const transferData = {
-  alias: "RODO.VICKY.BODA",
-  cbu: "0000003100000000000001",
-  titular: "Rodo y Vicky",
-  banco: "Banco a confirmar",
-};
+// Cronograma general por fechas. Resume las fechas clave de la experiencia.
+const generalSchedule = [
+  {
+    time: "09/01",
+    title: "Civil en Ushuaia",
+    text: "La boda por civil se celebra en Ushuaia, como primer momento de esta historia.",
+  },
+  {
+    time: "12/01",
+    title: "Check‑in en cabañas",
+    text: "Comienza la experiencia en Mendoza con el ingreso a las cabañas y la recepción de invitados.",
+  },
+  {
+    time: "13/01",
+    title: "Bodegas y trekking",
+    text: "Un día para disfrutar del paisaje mendocino, el vino y las primeras actividades compartidas.",
+  },
+  {
+    time: "14/01",
+    title: "Ceremonia",
+    text: "El gran día: ceremonia, celebración y un momento inolvidable con todos ustedes.",
+  },
+  {
+    time: "15/01",
+    title: "Actividades",
+    text: "Termas, rafting, río Mendoza y tiempo para seguir disfrutando esta escapada especial.",
+  },
+  {
+    time: "16/01",
+    title: "Checkout de cabañas",
+    text: "Cierre de la estadía y despedida de estos días tan lindos compartidos.",
+  },
+];
 
-const activityOptions = [
+// Cronograma desglosado por día. Muestra las actividades de cada jornada en detalle.
+const detailedSchedule = [
   {
-    key: "bodegas",
-    label: "Bodegas",
-    description: "Incluida sí o sí. Queremos brindar con ustedes.",
-    icon: Wine,
-    locked: true,
+    day: "Día 12/01",
+    title: "Llegada a Mendoza",
+    items: [
+      "Ingreso a las cabañas",
+      "Recepción durante el día",
+      "Actividad recreativa al Cerro Arco (trek)",
+      "Cena de bienvenida para los invitados",
+    ],
   },
   {
-    key: "tirolesa",
-    label: "Tirolesa",
-    description: "Para quienes quieran algo con adrenalina y vistas.",
-    icon: Mountain,
+    day: "Día 13/01",
+    title: "Viñas, aventura y festejo",
+    items: [
+      "Bodegas",
+      "Cabalgata",
+      "Cena karaoke",
+    ],
   },
+  {
+    day: "Día 14/01",
+    title: "Ceremonia",
+    items: [
+      "Ceremonia durante todo el día",
+    ],
+  },
+  {
+    day: "Día 15/01",
+    title: "Día de actividades",
+    items: [
+      "Termas y/o rafting",
+      "Piletas y río Mendoza",
+      "Noche de cierre de estadía",
+    ],
+  },
+  {
+    day: "Día 16/01",
+    title: "Despedida",
+    items: [
+      "Checkout",
+    ],
+  },
+];
+
+const details = [
+  {
+    icon: CalendarHeart,
+    title: "Fecha",
+    text: "Sábado 9 de enero de 2027",
+  },
+  {
+    icon: Clock3,
+    title: "Horario",
+    text: "Desde las 11:00 hs",
+  },
+  {
+    icon: MapPin,
+    title: "Lugar",
+    text: "Luján de Cuyo, Mendoza",
+  },
+  {
+    icon: Shirt,
+    title: "Dress code",
+    text: "Elegante de día · tonos suaves, tierra, vino, nude o negro",
+  },
+];
+
+// Opciones de actividad principal (se elige solo una). Bodegas es obligatoria y se maneja por separado.
+const activities = [
   {
     key: "cabalgata",
-    label: "Cabalgata",
-    description: "Recorrido relajado, paisaje y aire de montaña.",
+    title: "Cabalgata",
+    subtitle: "Elegí una opción",
+    text: "Un paseo tranquilo para disfrutar la montaña y el paisaje mendocino.",
+    meta: "Suave · 2 hs · con reserva",
     icon: Trees,
+    image: "/images/wedding/cabalgata.jpg",
   },
   {
     key: "rafting",
-    label: "Rafting",
-    description: "Plan intenso, agua, risas y aventura.",
+    title: "Rafting",
+    subtitle: "Elegí una opción",
+    text: "Plan aventurero, divertido y más intenso para quienes quieran adrenalina.",
+    meta: "Alto · 3 hs · con reserva",
     icon: Waves,
+    image: "/images/wedding/rafting.jpg",
   },
   {
     key: "termas",
-    label: "Termas",
-    description: "Opción tranquila para descansar y disfrutar.",
-    icon: Activity,
+    title: "Termas",
+    subtitle: "Elegí una opción",
+    text: "Una experiencia más relajada para descansar, disfrutar y compartir un momento tranquilo.",
+    meta: "Relax · medio día · con reserva",
+    icon: Wine,
+    image: "/images/wedding/termas.jpg",
+  },
+  {
+  key: "tirolesa",
+  title: "Tirolesa",
+  subtitle: "Elegí una opción",
+  text: "Una experiencia aérea llena de adrenalina, ideal para quienes quieren algo distinto y divertido.",
+  meta: "Medio/alto · 2 hs · con reserva",
+  icon: Mountain,
+  image: "/images/wedding/tirolesa.jpg",
+},
+];
+
+const stayInfo = [
+  {
+    icon: BedDouble,
+    title: "Hospedaje",
+    text: "Pronto vamos a compartir opciones sugeridas según presupuesto y distancia.",
+  },
+  {
+    icon: CarTaxiFront,
+    title: "Traslados",
+    text: "Recomendamos alojarse cerca de Luján de Cuyo. Más adelante confirmaremos traslados.",
+  },
+  {
+    icon: CloudSun,
+    title: "Clima",
+    text: "Enero en Mendoza suele ser cálido. Traé lentes, protector solar y calzado cómodo.",
   },
 ];
 
-function formatCountdown(target) {
+const transferData = [
+  { label: "Alias", value: "RODO.VICKY.BODA" },
+  { label: "CBU", value: "0000003100000000000001" },
+  { label: "Titular", value: "Rodo y Vicky" },
+  { label: "Banco", value: "Banco a confirmar" },
+];
+
+const faqs = [
+  {
+    q: "¿Hasta cuándo puedo confirmar asistencia?",
+    a: "Idealmente hasta 30 días antes del evento, así podemos cerrar organización, mesa y actividades.",
+  },
+  {
+    q: "¿Puedo ir con acompañante?",
+    a: "Si tu invitación contempla acompañante, vas a poder indicarlo en el RSVP o por WhatsApp.",
+  },
+  {
+    q: "¿Hay restricciones alimentarias?",
+    a: "Sí. En la confirmación podés indicarnos alergias, intolerancias o preferencias alimentarias.",
+  },
+  {
+    q: "¿Cómo va a ser el dress code?",
+    a: "Elegante de día. Recomendamos tonos suaves, tierra, vino, nude o negro. Evitá looks demasiado deportivos.",
+  },
+  {
+    q: "¿Qué calzado conviene llevar?",
+    a: "Como parte del evento será al aire libre, conviene priorizar comodidad y evitar opciones muy incómodas para terreno natural.",
+  },
+];
+
+const mendozaImages = [
+  "/images/wedding/mendoza2.jpg",
+  "/images/wedding/mendoza9.jpg",
+  "/images/wedding/mendoza1.jpg",
+  "/images/wedding/mendoza14.jpg",
+  "/images/wedding/mendoza4.jpg",
+  "/images/wedding/mendoza11.jpg",
+  "/images/wedding/mendoza3.jpg",
+  "/images/wedding/mendoza6.jpg",
+];
+const secondCarouselImages = [
+  "/images/wedding/hero.jpg",
+  "/images/wedding/1.jpg",
+  "/images/wedding/2.jpg",
+  "/images/wedding/3.jpg",
+  "/images/wedding/4.jpg",
+  "/images/wedding/5.jpg",
+  "/images/wedding/6.jpg",
+  "/images/wedding/7.jpg",
+  "/images/wedding/8.jpg",
+  "/images/wedding/9.jpg",
+  "/images/wedding/11.jpg",
+  "/images/wedding/12.jpg",
+  "/images/wedding/13.jpg",
+  "/images/wedding/14.jpg",
+  "/images/wedding/15.jpg",
+  "/images/wedding/16.jpg",
+  "/images/wedding/17.jpg",
+];
+// Padding helper for countdown numbers
+function pad(n) {
+  return String(n).padStart(2, "0");
+}
+
+// Calculate remaining time for the countdown
+function getCountdown(target) {
   const now = new Date();
   const diff = target.getTime() - now.getTime();
   if (diff <= 0) {
     return { days: 0, hours: 0, minutes: 0, seconds: 0, ended: true };
   }
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((diff / (1000 * 60)) % 60);
-  const seconds = Math.floor((diff / 1000) % 60);
-  return { days, hours, minutes, seconds, ended: false };
+  return {
+    days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+    hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+    minutes: Math.floor((diff / (1000 * 60)) % 60),
+    seconds: Math.floor((diff / 1000) % 60),
+    ended: false,
+  };
 }
 
-function pad(n) {
-  return String(n).padStart(2, "0");
-}
-
-function SectionTitle({ eyebrow, title, text, color }) {
+// Componente para encabezados de sección
+function SectionHeader({ eyebrow, title, text, theme, align = "center" }) {
+  const isCenter = align === "center";
   return (
-    <div className="text-center max-w-3xl mx-auto">
-      <p className="uppercase tracking-[0.35em] text-xs md:text-sm" style={{ color }}>
+    <div className={`${isCenter ? "text-center mx-auto" : ""} max-w-3xl`}>
+      <p
+        className="uppercase tracking-[0.32em] text-[11px] sm:text-xs font-medium"
+        style={{ color: theme.textSoft }}
+      >
         {eyebrow}
       </p>
-      <h2 className="mt-4 text-4xl md:text-6xl font-serif leading-[0.96]">
+      <h2 className="mt-3 text-[34px] sm:text-[42px] md:text-[58px] leading-[0.96] font-serif">
         {title}
       </h2>
-      {text ? <p className="mt-5 text-base md:text-lg leading-8 opacity-80">{text}</p> : null}
+      {text ? (
+        <p
+          className="mt-4 text-[15px] sm:text-base md:text-lg leading-7 md:leading-8"
+          style={{ color: theme.textSoft }}
+        >
+          {text}
+        </p>
+      ) : null}
     </div>
   );
 }
 
-function GlassCard({ children, theme, className = "" }) {
+// Componente para tarjetas estilo vidrio esmerilado
+function Card({ children, theme, className = "" }) {
   return (
     <div
-      className={`backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.08)] ${className}`}
-      style={{
-        background: theme.card,
-        border: `1px solid ${theme.border}`,
-      }}
+      className={`rounded-[28px] border shadow-[0_20px_60px_rgba(0,0,0,0.06)] backdrop-blur-xl ${className}`}
+      style={{ background: theme.card, borderColor: theme.line }}
     >
       {children}
     </div>
   );
 }
 
-export default function InvitacionBodaRodoVicky() {
-  const [opened, setOpened] = useState(false);
-  const [themeKey, setThemeKey] = useState("rose");
-  const [countdown, setCountdown] = useState(formatCountdown(EVENT_DATE));
+// Componente para cada cifra del contador
+function CountBox({ label, value, theme }) {
+  return (
+    <div
+      className="rounded-[24px] px-3 py-4 sm:px-4 sm:py-5 text-center"
+      style={{ background: theme.cardStrong, border: `1px solid ${theme.line}` }}
+    >
+      <div className="text-[28px] sm:text-[34px] md:text-[42px] font-serif tracking-[0.08em]">
+        {value}
+      </div>
+      <div
+        className="mt-1 text-[10px] sm:text-[11px] uppercase tracking-[0.22em]"
+        style={{ color: theme.textSoft }}
+      >
+        {label}
+      </div>
+    </div>
+  );
+}
+
+// Componente para cada pregunta frecuente con comportamiento de acordeón
+function FAQItem({ item, theme }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div
+      className="rounded-[22px] border overflow-hidden"
+      style={{ background: theme.cardStrong, borderColor: theme.line }}
+    >
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="w-full px-5 py-4 text-left flex items-center justify-between gap-4"
+      >
+        <span className="font-medium text-[15px] sm:text-base">{item.q}</span>
+        <ChevronDown
+          size={18}
+          className={`shrink-0 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+          style={{ color: theme.textSoft }}
+        />
+      </button>
+      <AnimatePresence initial={false}>
+        {open ? (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.22 }}
+          >
+            <div
+              className="px-5 pb-5 text-[15px] leading-7"
+              style={{ color: theme.textSoft }}
+            >
+              {item.a}
+            </div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+
+
+
+// Componente para revelar secciones al hacer scroll
+function Reveal({ children, delay = 0 }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.8, delay }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+function EditorialCarousel({
+  images,
+  eyebrow,
+  title,
+  text,
+  theme,
+  imageAlt = "Imagen del carrusel",
+}) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
+  const autoPlayRef = useRef(null);
+
+  function startAutoPlay() {
+    if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+    autoPlayRef.current = setInterval(() => {
+      setDirection(1);
+      setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+    }, 5500);
+  }
+
+  function resetAutoPlay() {
+    if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+    autoPlayRef.current = setInterval(() => {
+      setDirection(1);
+      setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+    }, 5500);
+  }
+
+  function prevSlide() {
+    setDirection(-1);
+    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+    resetAutoPlay();
+  }
+
+  function nextSlide() {
+    setDirection(1);
+    setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+    resetAutoPlay();
+  }
+
+  useEffect(() => {
+    startAutoPlay();
+    return () => {
+      if (autoPlayRef.current) {
+        clearInterval(autoPlayRef.current);
+        autoPlayRef.current = null;
+      }
+    };
+  }, [images.length]);
+
+  return (
+    <div className="max-w-7xl mx-auto grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-16 items-center">
+      <div className="max-w-md">
+        <p
+          className="uppercase tracking-[0.32em] text-[11px] sm:text-xs font-medium"
+          style={{ color: theme.textSoft }}
+        >
+          {eyebrow}
+        </p>
+
+        <h2 className="mt-4 text-[38px] sm:text-[52px] md:text-[68px] leading-[0.95] font-serif">
+          {title}
+        </h2>
+
+        <p
+          className="mt-5 text-[15px] sm:text-base leading-7 sm:leading-8"
+          style={{ color: theme.textSoft }}
+        >
+          {text}
+        </p>
+
+        <div className="mt-8">
+          <div
+            className="h-px w-20"
+            style={{ background: "rgba(93,63,117,0.18)" }}
+          />
+        </div>
+      </div>
+
+      <div className="relative">
+        <div
+          className="absolute right-0 top-[-26px] w-[78%] h-[82%] rounded-[2px]"
+          style={{
+            background: "rgba(93,63,117,0.08)",
+          }}
+        />
+
+        <div className="relative overflow-hidden h-[320px] sm:h-[420px] lg:h-[500px] shadow-[0_24px_60px_rgba(0,0,0,0.14)]">
+          <AnimatePresence initial={false} custom={direction} mode="sync">
+            <motion.img
+              key={images[currentIndex]}
+              src={images[currentIndex]}
+              alt={imageAlt}
+              className="absolute inset-0 w-full h-full object-cover"
+              custom={direction}
+              initial={(dir) => ({
+                x: dir > 0 ? "100%" : "-100%",
+                opacity: 1,
+              })}
+              animate={{ x: "0%", opacity: 1 }}
+              exit={(dir) => ({
+                x: dir > 0 ? "-100%" : "100%",
+                opacity: 1,
+              })}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            />
+          </AnimatePresence>
+
+          <button
+            type="button"
+            onClick={prevSlide}
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full border flex items-center justify-center backdrop-blur-sm transition-transform hover:scale-[1.05]"
+            style={{
+              background: "rgba(255,255,255,0.14)",
+              borderColor: "rgba(255,255,255,0.28)",
+              color: "#fff",
+            }}
+            aria-label="Imagen anterior"
+          >
+            ‹
+          </button>
+
+          <button
+            type="button"
+            onClick={nextSlide}
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full border flex items-center justify-center backdrop-blur-sm transition-transform hover:scale-[1.05]"
+            style={{
+              background: "rgba(255,255,255,0.14)",
+              borderColor: "rgba(255,255,255,0.28)",
+              color: "#fff",
+            }}
+            aria-label="Imagen siguiente"
+          >
+            ›
+          </button>
+        </div>
+
+        <div className="mt-5 flex items-center justify-center gap-2">
+          {images.map((_, index) => (
+            <span
+              key={index}
+              className="w-2.5 h-2.5 rounded-full transition-all duration-300"
+              style={{
+                background:
+                  index === currentIndex
+                    ? theme.accentStrong
+                    : "rgba(93,63,117,0.20)",
+                transform:
+                  index === currentIndex ? "scale(1.18)" : "scale(1)",
+              }}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function App() {
+  const [countdown, setCountdown] = useState(getCountdown(EVENT_DATE));
   const [musicOn, setMusicOn] = useState(false);
   const [copied, setCopied] = useState("");
+  
   const [form, setForm] = useState({
     nombre: "",
-    asistentes: "1",
+    asistencia: "si",
+    acompanantes: "1",
     restricciones: "",
-    sendero: "si",
-    actividades: ["bodegas"],
+    cancion: "",
+    mensaje: "",
+    actividadPrincipal: "",
+    senderoCerroArco: "tal vez",
+    genero: "",
   });
   const audioRef = useRef(null);
 
-  const theme = themes[themeKey];
+ 
 
+  // Actualizar contador cada segundo
   useEffect(() => {
-    // When the splash is visible (opened === false) lock background scrolling
-    if (!opened) {
-      try {
-        document.body.style.overflow = "hidden";
-      } catch (e) {}
-    } else {
-      try {
-        document.body.style.overflow = "";
-      } catch (e) {}
-    }
-    return () => {
-      try {
-        document.body.style.overflow = "";
-      } catch (e) {}
-    };
-  }, [opened]);
-
-  useEffect(() => {
-    const t = setInterval(() => setCountdown(formatCountdown(EVENT_DATE)), 1000);
-    return () => clearInterval(t);
+    const interval = setInterval(() => {
+      setCountdown(getCountdown(EVENT_DATE));
+    }, 1000);
+    return () => clearInterval(interval);
   }, []);
 
-  const enterBtnRef = useRef(null);
-  const [playOpenAnim, setPlayOpenAnim] = useState(false);
-  const audioContextRef = useRef(null);
-  const padNodesRef = useRef(null);
-  const [audioFallback, setAudioFallback] = useState(false);
-  const [audioErrorMessage, setAudioErrorMessage] = useState("");
-
-  useEffect(() => {
-    if (!opened && enterBtnRef.current) {
-      enterBtnRef.current.focus({ preventScroll: true });
-    }
-  }, [opened]);
-
-  const startEnter = () => {
-    if (playOpenAnim) return;
-    setPlayOpenAnim(true);
-    // start music as part of the user gesture (should be allowed by browsers)
-    try {
-      const audio = audioRef.current;
-      if (audio) {
-        try {
-          audio.volume = 0.15;
-        } catch (e) {}
-        // attempt to play immediately from the click event and fallback to generated pad
-        const p = audio.play();
-        if (p && typeof p.then === "function") {
-          p
-            .then(() => {
-              // played successfully
-            })
-            .catch((err) => {
-              console.warn("audio.play() failed, falling back to generated pad:", err);
-              setAudioErrorMessage("La reproducción de la pista fue bloqueada. Reproduciré un acompañamiento suave.");
-              startPad();
-              setAudioFallback(true);
-            });
-        }
-      }
-    } catch (e) {}
-    setMusicOn(true);
-    // allow the envelope/flap animation to play before removing the splash
-    setTimeout(() => setOpened(true), 900);
-  };
-
-  function startPad() {
-    try {
-      if (padNodesRef.current) return;
-      const AudioCtx = window.AudioContext || window.webkitAudioContext;
-      if (!AudioCtx) return;
-      const ctx = new AudioCtx();
-      try { if (ctx.state === 'suspended' && typeof ctx.resume === 'function') ctx.resume(); } catch (e) {}
-      audioContextRef.current = ctx;
-
-      const master = ctx.createGain();
-      master.gain.value = 0.06;
-      master.connect(ctx.destination);
-
-      const filter = ctx.createBiquadFilter();
-      filter.type = 'lowpass';
-      filter.frequency.value = 1200;
-      filter.Q.value = 0.9;
-      filter.connect(master);
-
-      const osc1 = ctx.createOscillator();
-      const g1 = ctx.createGain();
-      osc1.type = 'sine';
-      osc1.frequency.value = 220;
-      osc1.detune.value = -8;
-      g1.gain.value = 0.0001;
-      osc1.connect(g1);
-      g1.connect(filter);
-
-      const osc2 = ctx.createOscillator();
-      const g2 = ctx.createGain();
-      osc2.type = 'triangle';
-      osc2.frequency.value = 330;
-      osc2.detune.value = 6;
-      g2.gain.value = 0.0001;
-      osc2.connect(g2);
-      g2.connect(filter);
-
-      osc1.start();
-      osc2.start();
-
-      // fade in
-      const now = ctx.currentTime;
-      g1.gain.linearRampToValueAtTime(0.02, now + 1.4);
-      g2.gain.linearRampToValueAtTime(0.03, now + 1.6);
-
-      padNodesRef.current = { ctx, master, filter, osc1, osc2, g1, g2 };
-      setAudioFallback(true);
-      setAudioErrorMessage("");
-    } catch (err) {
-      console.warn('startPad error', err);
-      setAudioErrorMessage('No fue posible reproducir audio en este dispositivo.');
-    }
-  }
-
-  function stopPad() {
-    try {
-      const nodes = padNodesRef.current;
-      if (!nodes) return;
-      const { ctx, g1, g2, osc1, osc2, master } = nodes;
-      const now = ctx.currentTime;
-      g1.gain.cancelScheduledValues(now);
-      g2.gain.cancelScheduledValues(now);
-      g1.gain.linearRampToValueAtTime(0.0001, now + 0.8);
-      g2.gain.linearRampToValueAtTime(0.0001, now + 0.8);
-      setTimeout(() => {
-        try { osc1.stop(); } catch (e) {}
-        try { osc2.stop(); } catch (e) {}
-        try { master.disconnect(); } catch (e) {}
-        padNodesRef.current = null;
-        if (audioContextRef.current) {
-          try { audioContextRef.current.close(); } catch (e) {}
-          audioContextRef.current = null;
-        }
-        setAudioFallback(false);
-      }, 900);
-    } catch (err) {
-      console.warn('stopPad error', err);
-      padNodesRef.current = null;
-    }
-  }
-
-  useEffect(() => {
-    return () => {
-      // cleanup on unmount
-      try {
-        const audio = audioRef.current;
-        if (audio) audio.pause();
-      } catch (e) {}
-      try { stopPad(); } catch (e) {}
-    };
-  }, []);
-
+  // Controlar reproducción de música
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
     if (musicOn) {
-      try {
-        audio.volume = 0.15;
-      } catch (e) {}
-      if (audio.paused) audio.play().catch(() => {});
+      audio.volume = 0.18;
+      const promise = audio.play();
+      if (promise && typeof promise.catch === "function") {
+        promise.catch(() => setMusicOn(false));
+      }
     } else {
       audio.pause();
     }
   }, [musicOn]);
 
+
+  // Limpiar mensaje de copiado después de un tiempo
   useEffect(() => {
     if (!copied) return;
-    const t = setTimeout(() => setCopied(""), 1500);
-    return () => clearTimeout(t);
+    const timeout = setTimeout(() => setCopied(""), 1600);
+    return () => clearTimeout(timeout);
   }, [copied]);
 
+  // Componer mensaje para WhatsApp
   const whatsappMessage = useMemo(() => {
-    const acts = form.actividades.join(", ");
-    return encodeURIComponent(
-      `Hola 💜 Confirmo asistencia a la boda de Rodo y Vicky.%0A%0ANombre: ${form.nombre || ""}%0AAcompañantes: ${form.asistentes}%0ARestricciones alimenticias: ${form.restricciones || "Ninguna"}%0AActividades elegidas: ${acts}%0A¿Sendero a Cerro Arco?: ${form.sendero}`
-    );
-  }, [form]);
+  const actividadElegida = form.actividadPrincipal
+    ? form.actividadPrincipal
+    : "Ninguna elegida";
 
-  const toggleActivity = (key, locked) => {
-    if (locked) return;
-    setForm((prev) => {
-      const exists = prev.actividades.includes(key);
-      return {
-        ...prev,
-        actividades: exists
-          ? prev.actividades.filter((x) => x !== key)
-          : [...prev.actividades, key],
-      };
-    });
-  };
+  return encodeURIComponent(
+    `Hola 💛 Confirmo datos para la boda de Rodo y Vicky.\n\nNombre: ${form.nombre || "-"}\nAsistencia: ${form.asistencia}\nGénero: ${form.genero || "-"}\nInvitación: individual (1 persona)\nRestricciones alimentarias: ${form.restricciones || "Ninguna"}\nCanción sugerida: ${form.cancion || "Ninguna"}\nActividad principal: ${actividadElegida}\nSendero a Cerro Arco: ${form.senderoCerroArco}\nMensaje: ${form.mensaje || "-"}`
+  );
+}, [form]);
 
-  const copyValue = async (label, value) => {
+  // Seleccionar o deseleccionar actividad principal
+  function selectActividadPrincipal(key) {
+    setForm((prev) => ({
+      ...prev,
+      actividadPrincipal: prev.actividadPrincipal === key ? "" : key,
+    }));
+  }
+
+  // Copiar datos bancarios al portapapeles
+  async function copyValue(label, value) {
     try {
       await navigator.clipboard.writeText(value);
       setCopied(label);
-    } catch {}
-  };
+    } catch (error) {
+      console.error("No se pudo copiar:", error);
+    }
+  }
 
   return (
     <div
-      className="min-h-screen w-full overflow-x-hidden transition-colors duration-700"
+      className="min-h-screen overflow-x-hidden"
       style={{
-        background: `linear-gradient(180deg, ${theme.bg} 0%, ${theme.bg2} 50%, ${theme.bg} 100%)`,
         color: theme.text,
+        background: `linear-gradient(180deg, ${theme.pageBg} 0%, ${theme.pageBg2} 45%, ${theme.pageBg} 100%)`,
       }}
     >
-      <audio ref={audioRef} src={MUSIC_URL} loop preload="auto" playsInline crossOrigin="anonymous" />
+      {/* Audio de fondo */}
+      <audio ref={audioRef} src={MUSIC_URL} loop preload="auto" playsInline />
 
+      {/* Estilos globales y animaciones */}
       <style>{`
         html { scroll-behavior: smooth; }
-        body { font-family: Georgia, 'Times New Roman', serif; }
-        .font-serif { font-family: Georgia, 'Times New Roman', serif; }
-        .font-sans { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-
-        .name-font { font-family: 'Allura', cursive; }
-
+        body { 
+          font-family: 'Montserrat', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
+        }
+        .font-serif { 
+          font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif; 
+        }
+        .grain::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          opacity: 0.06;
+          background-image:
+            radial-gradient(circle at 20% 20%, rgba(255,255,255,0.7) 0, transparent 24%),
+            radial-gradient(circle at 80% 0%, rgba(255,255,255,0.45) 0, transparent 18%),
+            radial-gradient(circle at 50% 80%, rgba(255,255,255,0.35) 0, transparent 22%);
+          mix-blend-mode: soft-light;
+        }
         @keyframes petalFall {
           0% { transform: translate3d(0,-20vh,0) rotate(0deg); opacity: 0; }
-          10% { opacity: .8; }
+          10% { opacity: 0.8; }
           100% { transform: translate3d(var(--drift),120vh,0) rotate(360deg); opacity: 0; }
-        }
-        @keyframes floaty {
-          0%,100% { transform: translateY(0px); }
-          50% { transform: translateY(-10px); }
-        }
-        @keyframes glowPulse {
-          0%,100% { box-shadow: 0 10px 40px rgba(0,0,0,.06), 0 0 0 rgba(255,255,255,0); }
-          50% { box-shadow: 0 18px 60px rgba(0,0,0,.10), 0 0 60px rgba(255,255,255,.15); }
-        }
-        @keyframes shine {
-          0% { transform: translateX(-120%) rotate(12deg); }
-          100% { transform: translateX(120%) rotate(12deg); }
         }
         .petal {
           position: absolute;
@@ -465,586 +728,946 @@ export default function InvitacionBodaRodoVicky() {
           border-radius: 80% 0 80% 0;
           background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(221,170,197,0.95));
           animation: petalFall linear infinite;
-          filter: blur(0.5px); /* Aumentar visibilidad sutilmente */
-          opacity: 0.9; /* Incrementar opacidad ligeramente */
+          filter: blur(0.5px);
+          opacity: 0.85;
           pointer-events: none;
         }
-        .floaty { animation: floaty 7s ease-in-out infinite; }
-        .glowPulse { animation: glowPulse 4s ease-in-out infinite; }
-        .shine:before {
-          content: '';
-          position: absolute;
-          inset: -20%;
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
-          animation: shine 6s linear infinite;
-        }
-        .scrollbar-soft::-webkit-scrollbar { height: 8px; width: 8px; }
-        .scrollbar-soft::-webkit-scrollbar-thumb { background: rgba(120,120,120,.25); border-radius: 999px; }
       `}</style>
 
-      <div className="fixed inset-0 pointer-events-none overflow-hidden opacity-90" style={{ zIndex: 60 }}>
-        {Array.from({ length: 28 }).map((_, i) => (
+      {/* Superposición de pétalos */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 50, opacity: 0.9 }}>
+        {Array.from({ length: 24 }).map((_, i) => (
           <span
             key={i}
             className="petal"
             style={{
               left: `${(i * 17) % 100}%`,
               animationDuration: `${10 + (i % 8) * 2}s`,
-              animationDelay: `${(i % 9) * 0.6}s`,
-              ["--drift"]: `${-40 + (i % 7) * 14}px`,
+              animationDelay: `${(i % 9) * 0.5}s`,
+              ['--drift']: `${-40 + (i % 7) * 14}px`,
               transform: `scale(${0.65 + (i % 5) * 0.16})`,
             }}
           />
         ))}
       </div>
 
-      <AnimatePresence>
-        {!opened && (
-          <motion.div
-            className="fixed inset-0 flex items-center justify-center px-4"
-            style={{
-              backgroundImage: `linear-gradient(rgba(0,0,0,0.66), rgba(0,0,0,0.66)), url(${SPLASH_BG})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              zIndex: 9999,
-            }}
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0, transition: { duration: 0.7 } }}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="invite-title"
-            tabIndex={-1}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                startEnter();
-              }
-            }}
-          >
-            <motion.div
-              className="w-full min-h-screen flex items-center justify-center px-6"
-              initial={{ opacity: 0, y: 12, scale: 0.995 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={playOpenAnim ? { opacity: 0, y: -30, scale: 0.98 } : { opacity: 0 }}
-              transition={{ duration: 0.9, ease: [0.2, 0.9, 0.2, 1] }}
+      {/* Cabecera */}
+      <header className="fixed top-0 inset-x-0 z-40 px-3 pt-3 sm:px-5 sm:pt-5">
+        <div
+          className="max-w-7xl mx-auto rounded-full px-3 py-2 sm:px-4 sm:py-3 border backdrop-blur-xl flex items-center justify-between gap-3"
+          style={{
+            background: theme.card,
+            borderColor: theme.line,
+          }}
+        >
+          <div className="flex items-center gap-2 min-w-0">
+            <Heart size={16} />
+            <span className="text-sm sm:text-[15px] truncate">Rodo & Vicky</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setMusicOn((v) => !v)}
+              className="w-10 h-10 rounded-full border flex items-center justify-center hover:scale-[1.02] transition-transform"
+              style={{
+                background: theme.cardStrong,
+                borderColor: theme.line,
+              }}
+              aria-label={musicOn ? 'Silenciar música' : 'Activar música'}
+              title={musicOn ? 'Silenciar música' : 'Activar música'}
             >
-              <motion.div className="max-w-5xl text-center px-4" initial={{ opacity: 0, y: 8 }} animate={playOpenAnim ? { opacity: 0, y: -30 } : { opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-                <p className="uppercase tracking-[0.35em] text-sm md:text-base font-sans text-white/90">Nombre Invitado</p>
-                <h1 id="invite-title" className="mt-4 text-6xl md:text-[96px] name-font text-white leading-none" style={{ textShadow: '0 18px 40px rgba(0,0,0,0.45)' }}>Rodo y Vicky</h1>
-                <p className="mt-4 text-lg md:text-xl text-white/85">Con mucha alegría te invitamos a celebrar nuestra boda</p>
+              {musicOn ? <Volume2 size={18} /> : <VolumeX size={18} />}
+            </button>
+          </div>
+        </div>
+      </header>
 
-                <div className="mt-10 flex gap-4 justify-center">
-                  <button ref={enterBtnRef} onClick={startEnter} className="rounded-full px-6 py-3 bg-white text-black font-semibold shadow-md hover:scale-[1.02] transition-transform">Entrar a la invitación</button>
-                </div>
-              </motion.div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Hero */}
+      <section className="relative min-h-screen pt-28 sm:pt-32 pb-14 sm:pb-20 px-4 sm:px-6 overflow-hidden">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: "url(/images/wedding/aero.jpg)",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{ backgroundColor: theme.heroOverlay }}
+        />
+        <div className="relative z-10 max-w-7xl mx-auto flex items-center min-h-[calc(100vh-7rem)]">
+          <Reveal>
+            <div className="max-w-3xl">
+              <p className="uppercase tracking-[0.35em] text-[11px] sm:text-xs text-white/70">
+                9 de enero · Mendoza
+              </p>
+              <h1 className="mt-4 font-serif text-[52px] leading-[0.9] tracking-[0.02em] sm:text-[78px] md:text-[118px] text-white font-[600]">
+                Rodo & Vicky
+              </h1>
+              <p className="mt-4 max-w-xl text-[15px] sm:text-lg md:text-xl leading-7 sm:leading-8 text-white/82">
+                Un día para celebrar el amor, el vino y todo lo que queremos compartir con ustedes.
+              </p>
+              <div className="mt-8 grid grid-cols-4 gap-2 sm:gap-4 max-w-[560px]">
+                <CountBox label="Días" value={pad(countdown.days)} theme={theme} />
+                <CountBox label="Horas" value={pad(countdown.hours)} theme={theme} />
+                <CountBox label="Minutos" value={pad(countdown.minutes)} theme={theme} />
+                <CountBox label="Segundos" value={pad(countdown.seconds)} theme={theme} />
+              </div>
+              <div className="mt-8 flex flex-col sm:flex-row gap-3">
+                <a
+                  href="#rsvp"
+                  className="inline-flex items-center justify-center rounded-full bg-white text-black px-6 py-4 text-[15px] sm:text-base font-semibold hover:scale-[1.02] transition-transform"
+                >
+                  Confirmar asistencia
+                </a>
+                <a
+                  href={MAP_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center rounded-full border border-white/24 text-white px-6 py-4 text-[15px] sm:text-base font-medium bg-white/8 backdrop-blur-sm hover:bg-white/12 transition-colors"
+                >
+                  Ver ubicación
+                </a>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+    
+      {/* Lo esencial */}
+      <section className="px-4 sm:px-6 py-14 sm:py-20">
+        <Reveal>
+          <div className="max-w-7xl mx-auto">
+            <SectionHeader
+              eyebrow="Lo esencial"
+              title="Todo lo importante, claro y a mano"
+              text="La idea es que esta página sea su guía principal: fecha, lugar, dress code, actividades, regalos y confirmación."
+              theme={theme}
+            />
+          </div>
+        </Reveal>
+      </section>
 
-      <section className="relative min-h-screen px-5 md:px-8 pt-8 pb-16 flex items-center">
-        <div className="max-w-7xl mx-auto w-full">
-          <div className="mb-8">
-  <div className="text-center max-w-4xl mx-auto">
-    <p className="uppercase tracking-[0.4em] text-xs md:text-sm opacity-70 font-sans">
-      Invitación digital de boda
-    </p>
-    <h1 className="mt-3 text-6xl md:text-8xl lg:text-[110px] leading-[0.9] name-font">
-      Rodo y Vicky
-    </h1>
-    <p className="mt-4 max-w-2xl mx-auto text-base md:text-lg leading-8 opacity-80 font-sans">
-      Un día para celebrar el amor, el vino, Mendoza y todo lo hermoso que queremos compartir con ustedes.
-    </p>
-  </div>
+      {/* Bloque editorial con imagen y flechas */}
+      <section className="px-4 sm:px-6 py-14 sm:py-20">
+        <Reveal>
+          <EditorialCarousel
+            images={mendozaImages}
+            eyebrow="Mendoza"
+            title="Un destino para celebrar"
+            text="Entre viñas, montaña y atardeceres inolvidables, queremos que estos días también se sientan como una escapada hermosa para compartir juntos."
+            theme={theme}
+            imageAlt="Paisajes de Mendoza"
+          />
+        </Reveal>
+      </section>
 
-  <div className="mt-6 flex flex-wrap gap-3 justify-center">
-    <button
-      onClick={() => setMusicOn((v) => !v)}
-      className="rounded-full px-5 py-3 font-sans text-sm shadow-lg transition hover:scale-[1.03]"
-      style={{ background: theme.card, border: `1px solid ${theme.border}` }}
-    >
-      <span className="inline-flex items-center gap-2">
-        <Music4 size={16} /> {musicOn ? "Pausar música" : "Reproducir música"}
-      </span>
-    </button>
-    <a
-      href="#rsvp"
-      className="rounded-full px-5 py-3 font-sans text-sm text-white shadow-lg transition hover:scale-[1.03]"
-      style={{ background: theme.accent2 }}
-    >
-      Confirmar asistencia
-    </a>
-  </div>
-</div>
+      {/* Cronograma completo */}
+      <section className="px-4 sm:px-6 py-14 sm:py-20">
+        <Reveal>
+          <div className="max-w-7xl mx-auto">
+            <SectionHeader
+              eyebrow="Cronograma"
+              title="Así vamos a vivir estos días"
+              text="Primero celebramos el civil en Ushuaia y, unos días después, nos reencontramos en Mendoza para compartir la experiencia completa."
+              theme={theme}
+            />
 
-          <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-6 lg:gap-8 items-stretch">
-            <GlassCard theme={theme} className="rounded-[38px] p-8 md:p-10 relative overflow-visible shine shadow-md">
-              <div className="absolute inset-0 z-0 pointer-events-none" style={{
-                background: `radial-gradient(circle at 50% 0%, ${theme.accent2}10 0%, transparent 90%)`,
-                borderRadius: '38px',
-              }} />
-              <div className="relative z-10">
-                <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs md:text-sm uppercase tracking-[0.25em] font-sans shadow-md"
-                  style={{ background: "rgba(255,255,255,0.5)", color: theme.accent2 }}>
-                  <Sparkles size={16} /> Save the date
-                </div>
+            <div className="mt-10 grid lg:grid-cols-[0.9fr_1.1fr] gap-6 lg:gap-8">
+              {/* Resumen general */}
+              <Card theme={theme} className="p-6 sm:p-8">
+                <h3 className="text-2xl sm:text-3xl font-serif">Cronograma general</h3>
+                <div className="mt-6 space-y-5">
+                  {generalSchedule.map((item, index) => (
+                    <div key={`${item.time}-${item.title}`} className="grid grid-cols-[72px_1fr] gap-4">
+                      <div>
+                        <div
+                          className="rounded-full px-3 py-2 text-center text-xs uppercase tracking-[0.18em]"
+                          style={{ background: theme.chip, color: theme.accentStrong }}
+                        >
+                          {item.time}
+                        </div>
+                      </div>
 
-                <div className="mt-6 grid md:grid-cols-2 gap-4 font-sans items-center">
-                  <div className="rounded-[24px] p-6 flex flex-col items-start gap-2 w-full h-full" style={{ background: "rgba(255,255,255,0.55)" }}>
-                    <span className="flex items-center gap-2 text-sm font-semibold" style={{ color: theme.accent }}>
-                      <CalendarHeart size={18} /> Fecha
-                    </span>
-                    <span className="text-3xl md:text-4xl font-serif font-bold" style={{ letterSpacing: ".01em" }}>09 de enero de 2027</span>
-                    <span className="mt-1 opacity-80 leading-7 text-[15px]">Ceremonia civil a las 11:00 hs<br />Celebración durante todo el día.</span>
-                  </div>
-                  <div className="rounded-[24px] p-6 flex flex-col items-start gap-2 w-full h-full" style={{ background: "rgba(255,255,255,0.55)" }}>
-                    <span className="flex items-center gap-2 text-sm font-semibold" style={{ color: theme.accent }}>
-                      <MapPin size={18} /> Lugar
-                    </span>
-                    <span className="text-3xl md:text-4xl font-serif font-bold" style={{ letterSpacing: ".01em" }}>Fray Mamerto Esquiú</span>
-                    <span className="mt-1 opacity-80 leading-7 text-[15px]">Luján de Cuyo, Mendoza<br />Desde las 11:00 hasta las 06:00 hs.</span>
-                  </div>
-                </div>
+                      <div className="relative">
+                        {index !== generalSchedule.length - 1 ? (
+                          <div
+                            className="absolute left-[6px] top-7 bottom-[-18px] w-px"
+                            style={{ background: theme.line }}
+                          />
+                        ) : null}
 
-                <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 font-sans">
-                  {([
-                    { label: "Días", value: countdown.days },
-                    { label: "Horas", value: countdown.hours },
-                    { label: "Min", value: countdown.minutes },
-                    { label: "Seg", value: countdown.seconds },
-                  ]).map((item) => (
-                    <div key={item.label} className="rounded-[24px] p-4 text-center shadow-md" style={{ background: "rgba(255,255,255,0.6)" }}>
-                      <div className="text-4xl md:text-5xl font-serif font-bold" style={{ color: theme.accent2 }}>{pad(item.value)}</div>
-                      <div className="text-xs uppercase tracking-[0.25em] opacity-70" style={{ color: theme.soft }}>{item.label}</div>
+                        <div className="flex items-start gap-3">
+                          <div
+                            className="mt-1.5 w-3 h-3 rounded-full"
+                            style={{ background: theme.accent }}
+                          />
+                          <div>
+                            <h4 className="text-lg sm:text-xl font-serif">{item.title}</h4>
+                            <p
+                              className="mt-1 text-[15px] leading-7"
+                              style={{ color: theme.textSoft }}
+                            >
+                              {item.text}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>
+              </Card>
 
-                <div className="mt-6 text-center text-base md:text-lg font-serif opacity-80">
-                  ¡Falta poco para celebrar juntos!
-                </div>
+              {/* Desglose por día */}
+              <Card theme={theme} className="p-6 sm:p-8">
+                <h3 className="text-2xl sm:text-3xl font-serif">Cronograma desglosado</h3>
 
-                <div className="mt-6 flex flex-wrap gap-3 justify-center">
-                  <a href={MAP_URL} target="_blank" rel="noreferrer" className="rounded-full px-6 py-3 text-white shadow-lg font-sans text-sm" style={{ background: theme.accent2 }}>
-                    <span className="inline-flex items-center gap-2"><MapPin size={16} /> Ver ubicación</span>
-                  </a>
-                  <a href="#agenda" className="rounded-full px-6 py-3 shadow-lg font-sans text-sm" style={{ background: theme.card, border: `1px solid ${theme.border}` }}>
-                    <span className="inline-flex items-center gap-2"><CalendarHeart size={16} /> Ver agenda</span>
-                  </a>
-                </div>
-              </div>
-            </GlassCard>
+                <div className="mt-6 space-y-4">
+                  {detailedSchedule.map((dayItem) => (
+                    <div
+                      key={dayItem.day}
+                      className="rounded-[22px] p-5"
+                      style={{
+                        background: theme.cardStrong,
+                        border: `1px solid ${theme.line}`,
+                      }}
+                    >
+                      <p
+                        className="text-[11px] uppercase tracking-[0.24em]"
+                        style={{ color: theme.textSoft }}
+                      >
+                        {dayItem.day}
+                      </p>
 
-            <div className="grid grid-cols-2 gap-4 md:gap-5 h-full">
-              {venuePhotos.map((photo, idx) => (
-                <motion.div
-                  key={photo.title}
-                  initial={{ opacity: 0, y: 24, scale: 0.96 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{ delay: 0.25 + idx * 0.12, duration: 0.8 }}
-                >
-                  <GlassCard theme={theme} className={`rounded-[28px] overflow-hidden h-[260px] md:h-[300px]`}>
-                    <div className="relative h-full group">
-                      <img src={photo.src} alt={photo.title} className="absolute inset-0 w-full h-full object-cover transition duration-[4000ms] group-hover:scale-110" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-white/10" />
-                      <div className="absolute left-5 bottom-4 text-white">
-                        <p className="text-xl md:text-2xl font-serif">{photo.title}</p>
-                      </div>
+                      <h4 className="mt-2 text-xl sm:text-2xl font-serif">
+                        {dayItem.title}
+                      </h4>
+
+                      <ul className="mt-4 space-y-2 text-[15px] leading-7">
+                        {dayItem.items.map((item) => (
+                          <li key={item} style={{ color: theme.textSoft }}>
+                            • {item}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                  </GlassCard>
-                </motion.div>
-              ))}
+                  ))}
+                </div>
+              </Card>
             </div>
           </div>
-        </div>
+        </Reveal>
       </section>
 
-      <section className="px-5 md:px-8 py-20 md:py-28">
-        <div className="max-w-7xl mx-auto grid xl:grid-cols-[0.95fr_1.05fr] gap-8 items-start">
-          <GlassCard theme={theme} className="rounded-[34px] p-6 md:p-8 lg:p-10">
-            <SectionTitle
-              eyebrow="Detalles"
-              title="Todo lo importante, en una sola página"
-              text="Una experiencia elegante, suave y clara, inspirada en una invitación digital premium para que cada invitado encuentre todo sin perderse nada."
-              color={theme.soft}
-            />
-
-            <div className="mt-10 grid md:grid-cols-2 gap-4 font-sans">
-              {[
-                { icon: CalendarHeart, title: "Fecha", text: "Sábado 9 de enero de 2027" },
-                { icon: Clock3, title: "Horario", text: "Desde 11:00 hs hasta las 06:00 hs" },
-                { icon: MapPin, title: "Ubicación", text: "Calle Fray Mamerto Esquiú, Luján de Cuyo, Mendoza" },
-                { icon: Shirt, title: "Dress code", text: "Elegante de día · tonos suaves, nude, vino, tierra o negro" },
-              ].map((item) => (
-                <div key={item.title} className="rounded-[24px] p-5" style={{ background: "rgba(255,255,255,0.42)" }}>
-                  <item.icon size={18} className="mb-3" />
-                  <p className="text-xl font-serif">{item.title}</p>
-                  <p className="mt-2 leading-7 opacity-80">{item.text}</p>
+      {/* El día + Dress code */}
+      <section className="px-4 sm:px-6 pb-14 sm:pb-20">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-[1.05fr_0.95fr] gap-6 lg:gap-8 items-stretch">
+          <Reveal delay={0.05}>
+            <Card theme={theme} className="overflow-hidden">
+              <div className="grid md:grid-cols-[0.95fr_1.05fr] h-full">
+                <div className="relative min-h-[280px] md:min-h-full">
+                  <img
+                    src="/images/wedding/pareja.png"
+                    alt="Rodo y Vicky"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
                 </div>
-              ))}
-            </div>
-          </GlassCard>
-
-          <GlassCard theme={theme} className="rounded-[34px] p-6 md:p-8 lg:p-10">
-            <SectionTitle
-              eyebrow="Elegí tu tema"
-              title="Viví la invitación con tu estilo"
-              text="Cada invitado puede cambiar la ambientación visual de la página."
-              color={theme.soft}
-            />
-
-            <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-4 font-sans">
-              {Object.entries(themes).map(([key, t]) => (
-                <button
-                  key={key}
-                  onClick={() => setThemeKey(key)}
-                  className="rounded-[24px] p-4 text-left transition hover:scale-[1.02]"
-                  style={{
-                    background: `linear-gradient(135deg, ${t.bg}, ${t.bg2})`,
-                    border: key === themeKey ? `2px solid ${theme.accent2}` : `1px solid ${theme.border}`,
-                  }}
-                >
-                  <div className="flex items-center justify-between">
-                    <p className="font-serif text-xl" style={{ color: t.text }}>{t.name}</p>
-                    <Palette size={16} style={{ color: t.accent2 }} />
-                  </div>
-                  <div className="mt-4 flex gap-2">
-                    {[t.bg, t.bg2, t.accent, t.accent2].map((c) => (
-                      <span key={c} className="w-8 h-8 rounded-full border border-white/40" style={{ background: c }} />
+                <div className="p-6 sm:p-8 lg:p-10">
+                  <SectionHeader
+                eyebrow="Día de la ceremonia · 14 de enero"
+                title="El momento más importante"
+                text="Este es el día que imaginamos durante mucho tiempo. Queremos compartir cada instante con ustedes: desde la recepción hasta la última canción, en una celebración llena de emoción, alegría y fiesta."
+                theme={theme}
+                align="left"
+              />
+                  <div className="mt-8 space-y-5">
+                    {timeline.map((item, index) => (
+                      <div key={item.title} className="grid grid-cols-[76px_1fr] gap-4">
+                        <div>
+                          <div
+                            className="rounded-full px-3 py-2 text-center text-xs uppercase tracking-[0.18em]"
+                            style={{ background: theme.chip, color: theme.accentStrong }}
+                          >
+                            {item.time}
+                          </div>
+                        </div>
+                        <div className="relative">
+                          {index !== timeline.length - 1 ? (
+                            <div
+                              className="absolute left-[6px] top-7 bottom-[-20px] w-px"
+                              style={{ background: theme.line }}
+                            />
+                          ) : null}
+                          <div className="flex items-start gap-3">
+                            <div
+                              className="mt-1.5 w-3 h-3 rounded-full"
+                              style={{ background: theme.accent }}
+                            />
+                            <div>
+                              <h3 className="text-lg sm:text-xl font-serif">{item.title}</h3>
+                              <p className="mt-1 text-[15px] leading-7" style={{ color: theme.textSoft }}>
+                                {item.text}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     ))}
                   </div>
-                </button>
-              ))}
-            </div>
-          </GlassCard>
+                </div>
+              </div>
+            </Card>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <Card theme={theme} className="p-6 sm:p-8 lg:p-10">
+              <SectionHeader
+                eyebrow="Dress code"
+                title="Elegante, luminoso y cómodo"
+                text="Queremos una estética cuidada, fresca y natural. La idea es que se sientan lindos, cómodos y en sintonía con el lugar."
+                theme={theme}
+                align="left"
+              />
+              <div className="mt-8 grid sm:grid-cols-2 gap-4">
+                <div
+                  className="rounded-[22px] p-5"
+                  style={{ background: theme.cardStrong, border: `1px solid ${theme.line}` }}
+                >
+                  <p className="text-sm uppercase tracking-[0.22em]" style={{ color: theme.textSoft }}>
+                    Sí
+                  </p>
+                  <ul className="mt-3 space-y-2 text-[15px] leading-7">
+                    <li>• Tonos nude, tierra, vino, negro, oliva o suaves</li>
+                    <li>• Telas livianas y cortes elegantes</li>
+                    <li>• Calzado cómodo para exterior</li>
+                  </ul>
+                </div>
+                <div
+                  className="rounded-[22px] p-5"
+                  style={{ background: theme.cardStrong, border: `1px solid ${theme.line}` }}
+                >
+                  <p className="text-sm uppercase tracking-[0.22em]" style={{ color: theme.textSoft }}>
+                    Mejor evitar
+                  </p>
+                  <ul className="mt-3 space-y-2 text-[15px] leading-7">
+                    <li>• Looks demasiado deportivos</li>
+                    <li>• Prendas incómodas para un día largo</li>
+                    <li>• Calzado poco práctico para terreno natural</li>
+                  </ul>
+                </div>
+              </div>
+              <p className="mt-5 text-[15px] leading-7" style={{ color: theme.textSoft }}>
+                Mendoza en enero puede ser cálido, así que conviene priorizar frescura y comodidad sin perder elegancia.
+              </p>
+            </Card>
+          </Reveal>
         </div>
       </section>
-
-      <section id="agenda" className="px-5 md:px-8 py-20 md:py-28">
-        <div className="max-w-7xl mx-auto">
-          <SectionTitle
-            eyebrow="Agenda"
-            title="Cómo imaginamos este día"
-            text="Para que ya empieces a vivirlo desde ahora."
-            color={theme.soft}
+      
+            {/* Segundo carrusel */}
+      <section className="px-4 sm:px-6 py-14 sm:py-20">
+        <Reveal>
+          <EditorialCarousel
+            images={secondCarouselImages}
+            eyebrow="Momentos"
+            title="La historia que nos trajo hasta acá"
+            text="Cada imagen representa un momento compartido, una etapa vivida y un pedacito del camino que hoy nos encuentra celebrando este amor con ustedes."
+            theme={theme}
+            imageAlt="Recuerdos y momentos especiales"
           />
+        </Reveal>
+      </section>
 
-          <div className="mt-12 grid md:grid-cols-2 xl:grid-cols-4 gap-4 font-sans">
-            {schedule.map((item, idx) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ delay: idx * 0.08, duration: 0.6 }}
+      {/* Encuesta de actividades */}
+      <section className="px-4 sm:px-6 py-14 sm:py-20">
+        <Reveal>
+          <div className="max-w-7xl mx-auto">
+            <SectionHeader
+              eyebrow="Experiencias"
+              title="Encuesta de actividades"
+              text="Nos encantaría vivir con ustedes algunos momentos especiales en Mendoza. Bodegas va sí o sí. Además queremos saber qué otro plan te entusiasma más."
+              theme={theme}
+            />
+            {/* Actividad obligatoria */}
+            {/* Actividad obligatoria */}
+            <div className="mt-6">
+              <Card theme={theme} className="p-5 sm:p-6">
+                {/* Actividad obligatoria */}
+<div className="mt-6">
+  <div
+    className="rounded-[28px] overflow-hidden border"
+    style={{
+      background: theme.card,
+      borderColor: theme.accent,
+      boxShadow: `0 20px 50px rgba(0,0,0,0.09), 0 0 0 1px ${theme.accent} inset`,
+    }}
+  >
+    <div className="relative h-[220px]">
+      <img
+        src="/images/wedding/vino.png"
+        alt="Bodegas"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-transparent" />
+
+      <div className="absolute top-4 right-4">
+        <div
+          className="rounded-full px-4 py-2 text-[11px] uppercase tracking-[0.24em] font-medium"
+          style={{
+            background: "rgba(255,255,255,0.16)",
+            color: "#fff",
+            border: "1px solid rgba(255,255,255,0.22)",
+            backdropFilter: "blur(8px)",
+          }}
+        >
+          Incluida
+        </div>
+      </div>
+
+      <div className="absolute left-4 right-4 bottom-4 flex items-end justify-between gap-3">
+                <div>
+                  <p className="text-[11px] uppercase tracking-[0.24em] text-white/70">
+                    Experiencia confirmada
+                  </p>
+                  <h3 className="mt-1 text-2xl font-serif text-white">Bodegas</h3>
+                </div>
+
+                <div className="w-10 h-10 rounded-full bg-white/14 border border-white/20 backdrop-blur-sm flex items-center justify-center text-white">
+                  <Check size={18} />
+                </div>
+              </div>
+            </div>
+
+            <div
+              className="p-5"
+              style={{
+                background: theme.accentSoft,
+              }}
+            >
+              <p
+                className="text-[15px] leading-7"
+                style={{ color: theme.accentStrong }}
               >
-                <GlassCard theme={theme} className="rounded-[28px] p-6 h-full">
-                  <div className="w-12 h-12 rounded-full flex items-center justify-center text-white" style={{ background: theme.accent2 }}>
-                    <PartyPopper size={20} />
-                  </div>
-                  <p className="mt-5 text-sm uppercase tracking-[0.24em] opacity-70">{item.time}</p>
-                  <h3 className="mt-2 text-2xl font-serif">{item.title}</h3>
-                  <p className="mt-3 leading-7 opacity-80">{item.text}</p>
-                </GlassCard>
-              </motion.div>
-            ))}
+                Esta experiencia va sí o sí. Queremos brindar con ustedes y compartir un momento especial entre viñas.
+              </p>
+              <p className="mt-3 text-sm" style={{ color: theme.accentStrong }}>
+                Actividad incluida · no requiere elección
+              </p>
+            </div>
           </div>
         </div>
+              </Card>
+            </div>
+            {/* Opciones de actividad principal */}
+            <div className="mt-8 grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+              {activities.map((item) => (
+                <motion.button
+                  key={item.key}
+                  type="button"
+                  onClick={() => selectActividadPrincipal(item.key)}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.6 }}
+                  className="text-left rounded-[28px] overflow-hidden border transition-transform hover:-translate-y-1"
+                  style={{
+                  background: theme.card,
+                  borderColor:
+                    form.actividadPrincipal === item.key ? theme.accentStrong : theme.line,
+                  boxShadow:
+                    form.actividadPrincipal === item.key
+                      ? `0 22px 55px rgba(93,63,117,0.18), 0 0 0 1px ${theme.accentStrong} inset`
+                      : "0 20px 50px rgba(0,0,0,0.06)",
+                }}
+                >
+                  <div className="relative h-[220px]">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-transparent" />
+                    <div className="absolute left-4 right-4 bottom-4 flex items-end justify-between gap-3">
+                      <div>
+                        <p className="text-[11px] uppercase tracking-[0.24em] text-white/70">
+                          {item.subtitle}
+                        </p>
+                        <h3 className="mt-1 text-2xl font-serif text-white">{item.title}</h3>
+                      </div>
+                      <div className="w-10 h-10 rounded-full bg-white/14 border border-white/20 backdrop-blur-sm flex items-center justify-center text-white">
+                        {form.actividadPrincipal === item.key ? <Check size={18} /> : <item.icon size={18} />}
+                      </div>
+                    </div>
+                  </div>
+                  <div
+  className="p-5 transition-colors duration-300"
+  style={{
+    background:
+  form.actividadPrincipal === item.key
+    ? "rgba(124, 58, 237, 0.12)" // violeta más visible
+    : "transparent",
+  }}
+>
+  <p
+    className="text-[15px] leading-7 transition-colors duration-300"
+    style={{
+      color:
+        form.actividadPrincipal === item.key ? theme.accentStrong : theme.text,
+    }}
+  >
+    {item.text}
+  </p>
+  <p
+    className="mt-3 text-sm transition-colors duration-300"
+    style={{
+      color:
+        form.actividadPrincipal === item.key
+          ? theme.accentStrong
+          : theme.textSoft,
+    }}
+  >
+    {item.meta}
+  </p>
+</div>
+                </motion.button>
+              ))}
+            </div>
+            {/* Sendero Cerro Arco */}
+            <div className="mt-8">
+              <Card theme={theme} className="p-5 sm:p-6">
+                <div className="flex flex-col gap-3">
+                  <div>
+                    <p
+                      className="text-[11px] uppercase tracking-[0.24em]"
+                      style={{ color: theme.textSoft }}
+                    >
+                      Actividad opcional
+                    </p>
+                    <h3 className="mt-1 text-2xl sm:text-3xl font-serif">Sendero a Cerro Arco</h3>
+                    <p className="mt-3 text-[15px] leading-7" style={{ color: theme.textSoft }}>
+                      Queremos saber si te sumás a esta actividad para organizarnos mejor.
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-3 pt-2">
+                    {[{ value: 'si', label: 'Sí, me sumo' }, { value: 'tal vez', label: 'Tal vez' }, { value: 'no', label: 'No esta vez' }].map((option) => (
+                      <button
+                        key={option.value}
+                        type="button"
+                        onClick={() =>
+                          setForm((prev) => ({
+                            ...prev,
+                            senderoCerroArco: option.value,
+                          }))
+                        }
+                        className="rounded-full px-4 py-2.5 text-sm transition-transform hover:scale-[1.02]"
+                        style={{
+                          background:
+                            form.senderoCerroArco === option.value ? theme.accentStrong : theme.chip,
+                          color:
+                            form.senderoCerroArco === option.value ? '#ffffff' : theme.text,
+                        }}
+                      >
+                        {option.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </Card>
+            </div>
+          </div>
+        </Reveal>
       </section>
 
-      <section className="px-5 md:px-8 py-20 md:py-28">
-        <div className="max-w-7xl mx-auto grid xl:grid-cols-[1.05fr_0.95fr] gap-8 items-start">
-          <GlassCard theme={theme} className="rounded-[34px] p-6 md:p-8 lg:p-10">
-            <SectionTitle
-              eyebrow="Aventura mendocina"
-              title="Encuesta de actividades"
-              text="Bodegas va sí o sí. Además queremos saber qué otro plan te entusiasma más."
-              color={theme.soft}
-            />
-
-            <div className="mt-10 grid md:grid-cols-2 gap-4 font-sans">
-              {activityOptions.map((item) => {
-                const active = form.actividades.includes(item.key);
-                const Icon = item.icon;
-                return (
-                  <button
-                    key={item.key}
-                    type="button"
-                    onClick={() => toggleActivity(item.key, item.locked)}
-                    className="rounded-[26px] p-5 text-left transition hover:scale-[1.01]"
-                    style={{
-                      background: active ? theme.accent2 : "rgba(255,255,255,0.42)",
-                      color: active ? "white" : theme.text,
-                      border: active ? "1px solid transparent" : `1px solid ${theme.border}`,
-                    }}
+      {/* Hospedaje, transporte y regalos */}
+      <section className="px-4 sm:px-6 pb-14 sm:pb-20">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-[0.95fr_1.05fr] gap-6 lg:gap-8">
+          <Reveal delay={0.05}>
+            <Card theme={theme} className="p-6 sm:p-8 lg:p-10">
+              <SectionHeader
+                eyebrow="Hospedaje y transporte"
+                title="Información útil para organizar el viaje"
+                text="Queremos que todo sea fácil también para quienes vienen desde afuera."
+                theme={theme}
+                align="left"
+              />
+              <div className="mt-8 space-y-4">
+                {stayInfo.map((item) => (
+                  <div
+                    key={item.title}
+                    className="rounded-[22px] p-5"
+                    style={{ background: theme.cardStrong, border: `1px solid ${theme.line}` }}
                   >
-                    <div className="flex items-start justify-between gap-4">
-                      <div>
-                        <div className="inline-flex items-center gap-2">
-                          <Icon size={18} />
-                          <p className="font-serif text-2xl">{item.label}</p>
-                        </div>
-                        <p className="mt-3 leading-7 opacity-90">{item.description}</p>
+                    <div className="flex items-start gap-4">
+                      <div
+                        className="w-11 h-11 rounded-full flex items-center justify-center shrink-0"
+                        style={{ background: theme.accentSoft, color: theme.accentStrong }}
+                      >
+                        <item.icon size={18} />
                       </div>
-                      {item.locked ? (
-                        <span className="text-xs uppercase tracking-[0.22em] opacity-90">Incluida</span>
-                      ) : (
-                        <div className="w-6 h-6 rounded-full border border-current mt-1 flex items-center justify-center">
-                          {active ? <Check size={14} /> : null}
-                        </div>
-                      )}
+                      <div>
+                        <h3 className="text-lg font-serif">{item.title}</h3>
+                        <p className="mt-1 text-[15px] leading-7" style={{ color: theme.textSoft }}>
+                          {item.text}
+                        </p>
+                      </div>
                     </div>
-                  </button>
-                );
-              })}
-            </div>
-
-            <div className="mt-8 rounded-[28px] p-5 md:p-6 font-sans" style={{ background: "rgba(255,255,255,0.42)" }}>
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                <div>
-                  <div className="inline-flex items-center gap-2">
-                    <Footprints size={18} />
-                    <p className="font-serif text-2xl">Sendero a Cerro Arco</p>
                   </div>
-                  <p className="mt-2 leading-7 opacity-80">Queremos saber si te sumás a esta actividad para organizarlo mejor.</p>
-                </div>
-                <a href={CERRO_ARCO_URL} target="_blank" rel="noreferrer" className="rounded-full px-5 py-3 text-white shadow-lg font-sans text-sm" style={{ background: theme.accent2 }}>
-                  Ver referencia
-                </a>
-              </div>
-
-              <div className="mt-5 flex flex-wrap gap-3">
-                {[
-                  { value: "si", label: "Sí, me sumo" },
-                  { value: "tal vez", label: "Tal vez" },
-                  { value: "no", label: "No esta vez" },
-                ].map((opt) => (
-                  <button
-                    key={opt.value}
-                    onClick={() => setForm((p) => ({ ...p, sendero: opt.value }))}
-                    className="rounded-full px-5 py-3 font-sans text-sm transition"
-                    style={{
-                      background: form.sendero === opt.value ? theme.accent2 : "rgba(255,255,255,0.42)",
-                      color: form.sendero === opt.value ? "white" : theme.text,
-                      border: form.sendero === opt.value ? "1px solid transparent" : `1px solid ${theme.border}`,
-                    }}
-                  >
-                    {opt.label}
-                  </button>
                 ))}
               </div>
-            </div>
-          </GlassCard>
-
-          <GlassCard theme={theme} className="rounded-[34px] p-6 md:p-8 lg:p-10">
-            <SectionTitle
-              eyebrow="Dress code"
-              title="Elegancia suave con alma de viñedo"
-              text="Nos imaginamos una estética armónica, fresca y sofisticada."
-              color={theme.soft}
-            />
-
-            <div className="mt-10 grid gap-4 font-sans">
-              {[
-                {
-                  icon: SunMedium,
-                  title: "Ideal",
-                  text: "Tonos vino, rosa empolvado, champagne, nude, negro, gris humo, arena o verde suave.",
-                },
-                {
-                  icon: MoonStar,
-                  title: "Estilo",
-                  text: "Elegante · romántico · prolijo. Pueden sumar texturas, brillo sutil o detalles delicados.",
-                },
-                {
-                  icon: Flower2,
-                  title: "Tip",
-                  text: "Como será un día largo, prioricen verse hermosos pero también cómodos para disfrutar de todo.",
-                },
-              ].map((item) => (
-                <div key={item.title} className="rounded-[24px] p-5" style={{ background: "rgba(255,255,255,0.42)" }}>
-                  <div className="inline-flex items-center gap-2">
-                    <item.icon size={18} />
-                    <p className="font-serif text-2xl">{item.title}</p>
-                  </div>
-                  <p className="mt-3 leading-7 opacity-80">{item.text}</p>
-                </div>
-              ))}
-            </div>
-          </GlassCard>
-        </div>
-      </section>
-
-      <section id="rsvp" className="px-5 md:px-8 py-20 md:py-28">
-        <div className="max-w-7xl mx-auto grid xl:grid-cols-[1fr_1fr] gap-8 items-start">
-          <GlassCard theme={theme} className="rounded-[34px] p-6 md:p-8 lg:p-10">
-            <SectionTitle
-              eyebrow="RSVP"
-              title="Confirmá tu asistencia"
-              text="Podés usar el formulario conectado a Excel/Sheets y además enviarnos un WhatsApp con tu info por si acaso."
-              color={theme.soft}
-            />
-
-            <div className="mt-10 grid gap-4 font-sans">
-              <div>
-                <label className="block text-sm uppercase tracking-[0.24em] opacity-70 mb-2">Nombre y apellido</label>
-                <input
-                  value={form.nombre}
-                  onChange={(e) => setForm((p) => ({ ...p, nombre: e.target.value }))}
-                  className="w-full rounded-[18px] px-4 py-4 outline-none"
-                  style={{ background: "rgba(255,255,255,0.52)", border: `1px solid ${theme.border}` }}
-                  placeholder="Escribí tu nombre"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm uppercase tracking-[0.24em] opacity-70 mb-2">Cantidad de asistentes</label>
-                <select
-                  value={form.asistentes}
-                  onChange={(e) => setForm((p) => ({ ...p, asistentes: e.target.value }))}
-                  className="w-full rounded-[18px] px-4 py-4 outline-none"
-                  style={{ background: "rgba(255,255,255,0.52)", border: `1px solid ${theme.border}` }}
-                >
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm uppercase tracking-[0.24em] opacity-70 mb-2">Restricciones alimenticias</label>
-                <textarea
-                  value={form.restricciones}
-                  onChange={(e) => setForm((p) => ({ ...p, restricciones: e.target.value }))}
-                  className="w-full min-h-[120px] rounded-[18px] px-4 py-4 outline-none resize-y"
-                  style={{ background: "rgba(255,255,255,0.52)", border: `1px solid ${theme.border}` }}
-                  placeholder="Ej: vegetariano, celiaquía, sin lactosa, alergias, etc."
-                />
-              </div>
-            </div>
-
-            <div className="mt-8 flex flex-wrap gap-3 font-sans">
-              <a
-                href={RSVP_FORM_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-full px-6 py-3.5 text-white shadow-lg hover:scale-[1.03] transition"
-                style={{ background: theme.accent2 }}
-              >
-                <span className="inline-flex items-center gap-2"><Send size={16} /> Ir al formulario / Excel</span>
-              </a>
-              <a
-                href={`https://wa.me/${RSVP_PHONE}?text=${whatsappMessage}`}
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-full px-6 py-3.5 hover:scale-[1.03] transition"
-                style={{ background: theme.card, border: `1px solid ${theme.border}` }}
-              >
-                Enviar por WhatsApp
-              </a>
-            </div>
-
-            <div className="mt-5 rounded-[22px] p-4 font-sans text-sm leading-7" style={{ background: "rgba(255,255,255,0.42)" }}>
-              Pegá en <strong>RSVP_FORM_URL</strong> el link de tu formulario conectado a Excel/Google Sheets. Así el botón queda operativo de verdad y las respuestas se guardan automáticamente.
-            </div>
-          </GlassCard>
-
-          <GlassCard theme={theme} className="rounded-[34px] p-6 md:p-8 lg:p-10">
-            <SectionTitle
-              eyebrow="Regalo"
-              title="Datos para transferencia"
-              text="Su presencia ya es un regalo. Si además quieren acompañarnos con algo más, les dejamos los datos acá."
-              color={theme.soft}
-            />
-
-            <div className="mt-10 grid gap-4 font-sans">
-              {[
-                ["Alias", transferData.alias],
-                ["CBU", transferData.cbu],
-                ["Titular", transferData.titular],
-                ["Banco", transferData.banco],
-              ].map(([label, value]) => (
-                <div key={label} className="rounded-[22px] p-5 flex items-center justify-between gap-4" style={{ background: "rgba(255,255,255,0.42)" }}>
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.24em] opacity-65">{label}</p>
-                    <p className="mt-2 text-xl font-serif break-all">{value}</p>
-                  </div>
-                  <button
-                    onClick={() => copyValue(label, value)}
-                    className="rounded-full w-11 h-11 flex items-center justify-center"
-                    style={{ background: theme.card, border: `1px solid ${theme.border}` }}
+            </Card>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <Card theme={theme} className="p-6 sm:p-8 lg:p-10" id="regalos">
+              <SectionHeader
+                eyebrow="Celebrar juntos"
+                title="Un fin de semana pensado para disfrutar"
+                text="En lugar de regalos, elegimos compartir esta experiencia con ustedes. El aporte es de $150.000 por persona e incluye hospedaje, comidas y actividades durante toda la estadía."
+                theme={theme}
+                align="left"
+              />
+              <div className="mt-8 space-y-3">
+                {transferData.map((item) => (
+                  <div
+                    key={item.label}
+                    className="rounded-[22px] p-4 sm:p-5 flex items-center justify-between gap-3"
+                    style={{ background: theme.cardStrong, border: `1px solid ${theme.line}` }}
                   >
-                    {copied === label ? <Check size={18} /> : <Copy size={18} />}
-                  </button>
+                    <div className="min-w-0">
+                      <p className="text-[11px] uppercase tracking-[0.22em]" style={{ color: theme.textSoft }}>
+                        {item.label}
+                      </p>
+                      <p className="mt-1 text-[15px] sm:text-base break-all">{item.value}</p>
+                    </div>
+                    <button
+                      onClick={() => copyValue(item.label, item.value)}
+                      className="shrink-0 rounded-full px-4 py-2 text-sm font-medium"
+                      style={{ background: theme.chip }}
+                    >
+                      {copied === item.label ? "Copiado" : "Copiar"}
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <div
+                className="mt-5 rounded-[22px] p-5 flex items-start gap-4"
+                style={{ background: theme.cardStrong, border: `1px solid ${theme.line}` }}
+              >
+                <div
+                  className="w-11 h-11 rounded-full flex items-center justify-center shrink-0"
+                  style={{ background: theme.accentSoft, color: theme.accentStrong }}
+                >
+                  <Heart size={18} />
                 </div>
+
+                <div className="min-w-0 flex-1">
+                  <p className="text-[15px] leading-7" style={{ color: theme.textSoft }}>
+                    Su presencia es el regalo más importante para nosotros.
+                  </p>
+
+                  <p className="text-[15px] leading-7 mt-3" style={{ color: theme.textSoft }}>
+                    Sabemos que estar acá implica tiempo, organización y esfuerzo, y lo valoramos profundamente.
+                  </p>
+
+                  <p className="text-[15px] leading-7 mt-3 font-medium" style={{ color: theme.text }}>
+                    Lo único que realmente queremos es compartir este momento con ustedes.
+                  </p>
+                </div>
+              </div>
+            </Card>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* RSVP */}
+      <section className="px-4 sm:px-6 pb-14 sm:pb-20" id="rsvp">
+        <div className="max-w-7xl mx-auto">
+          <Reveal>
+            <Card theme={theme} className="overflow-hidden">
+              <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
+                <div className="relative min-h-[280px] lg:min-h-full">
+                  <img
+                    src="/images/wedding/2.jpg"
+                    alt="Momento emotivo"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8 text-white">
+                    <h2 className="mt-3 text-[34px] sm:text-[46px] font-serif leading-[0.96]">
+                      Nos encantaría contar con vos
+                    </h2>
+                    <p className="mt-3 max-w-md text-[15px] sm:text-base leading-7 text-white/82">
+                      Completá tus datos.
+                    </p>
+                  </div>
+                </div>
+                <div className="p-6 sm:p-8 lg:p-10">
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <label className="block">
+                      <span className="block text-sm mb-2" style={{ color: theme.textSoft }}>
+                        Nombre y apellido
+                      </span>
+                      <input
+                        value={form.nombre}
+                        onChange={(e) => setForm({ ...form, nombre: e.target.value })}
+                        className="w-full rounded-[18px] px-4 py-3.5 outline-none"
+                        style={{ background: theme.cardStrong, border: `1px solid ${theme.line}` }}
+                        placeholder="Tu nombre"
+                      />
+                    </label>
+
+                    <label className="block">
+                      <span className="block text-sm mb-2" style={{ color: theme.textSoft }}>
+                        Invitación individual
+                      </span>
+                      <input
+                        type="text"
+                        value="1 persona"
+                        readOnly
+                        className="w-full rounded-[18px] px-4 py-3.5 outline-none cursor-not-allowed"
+                        style={{
+                          background: theme.cardStrong,
+                          border: `1px solid ${theme.line}`,
+                          color: theme.textSoft,
+                        }}
+                      />
+                    </label>
+
+                    <label className="block">
+                      <span className="block text-sm mb-2" style={{ color: theme.textSoft }}>
+                        Género
+                      </span>
+                      <select
+                        value={form.genero}
+                        onChange={(e) => setForm({ ...form, genero: e.target.value })}
+                        className="w-full rounded-[18px] px-4 py-3.5 outline-none"
+                        style={{ background: theme.cardStrong, border: `1px solid ${theme.line}` }}
+                      >
+                        <option value="">Seleccionar</option>
+                        <option value="hombre">Hombre</option>
+                        <option value="mujer">Mujer</option>
+                      </select>
+                    </label>
+
+                    <label className="block">
+                      <span className="block text-sm mb-2" style={{ color: theme.textSoft }}>
+                        Canción sugerida
+                      </span>
+                      <input
+                        value={form.cancion}
+                        onChange={(e) => setForm({ ...form, cancion: e.target.value })}
+                        className="w-full rounded-[18px] px-4 py-3.5 outline-none"
+                        style={{ background: theme.cardStrong, border: `1px solid ${theme.line}` }}
+                        placeholder="Tema para bailar"
+                      />
+                    </label>
+                  </div>
+                  <label className="block mt-4">
+                    <span className="block text-sm mb-2" style={{ color: theme.textSoft }}>
+                      Restricciones alimentarias
+                    </span>
+                    <textarea
+                      value={form.restricciones}
+                      onChange={(e) => setForm({ ...form, restricciones: e.target.value })}
+                      rows={3}
+                      className="w-full rounded-[18px] px-4 py-3.5 outline-none resize-none"
+                      style={{ background: theme.cardStrong, border: `1px solid ${theme.line}` }}
+                      placeholder="Alergias, intolerancias, vegetariano, etc."
+                    />
+                  </label>
+                  <label className="block mt-4">
+                    <span className="block text-sm mb-2" style={{ color: theme.textSoft }}>
+                      Mensaje para los novios
+                    </span>
+                    <textarea
+                      value={form.mensaje}
+                      onChange={(e) => setForm({ ...form, mensaje: e.target.value })}
+                      rows={4}
+                      className="w-full rounded-[18px] px-4 py-3.5 outline-none resize-none"
+                      style={{ background: theme.cardStrong, border: `1px solid ${theme.line}` }}
+                      placeholder="Escribí algo lindo acá"
+                    />
+                  </label>
+                  {/* Selecciones de actividades en RSVP */}
+                  <div className="mt-5">
+                    <p className="text-sm mb-3" style={{ color: theme.textSoft }}>
+                      Actividad principal elegida
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {activities.map((item) => {
+                        const active = form.actividadPrincipal === item.key;
+                        return (
+                          <button
+                            key={item.key}
+                            type="button"
+                            onClick={() => selectActividadPrincipal(item.key)}
+                            className="rounded-full px-4 py-2 text-sm transition-transform hover:scale-[1.02]"
+                            style={{
+                              background: active ? theme.accentStrong : theme.chip,
+                              color: active ? '#ffffff' : theme.text,
+                            }}
+                          >
+                            {item.title}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  <div className="mt-4">
+                    <p className="text-sm mb-3" style={{ color: theme.textSoft }}>
+                      Sendero a Cerro Arco
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {[{ value: 'si', label: 'Sí, me sumo' }, { value: 'tal vez', label: 'Tal vez' }, { value: 'no', label: 'No esta vez' }].map((option) => (
+                        <button
+                          key={option.value}
+                          type="button"
+                          onClick={() => setForm((prev) => ({ ...prev, senderoCerroArco: option.value }))}
+                          className="rounded-full px-4 py-2 text-sm transition-transform hover:scale-[1.02]"
+                          style={{
+                            background: form.senderoCerroArco === option.value ? theme.accentStrong : theme.chip,
+                            color: form.senderoCerroArco === option.value ? '#ffffff' : theme.text,
+                          }}
+                        >
+                          {option.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="mt-6 flex flex-col sm:flex-row gap-3">
+  <button
+    type="button"
+    onClick={() => {
+      if (!form.genero) {
+        alert("Por favor seleccioná tu género antes de confirmar.");
+        return;
+      }
+
+      const whatsappURL = `https://wa.me/${RSVP_PHONE}?text=${whatsappMessage}`;
+      window.open(whatsappURL, "_blank");
+
+      setTimeout(() => {
+        if (form.genero === "hombre") {
+          window.open(WHATSAPP_GROUP_BOYS, "_blank");
+        } else if (form.genero === "mujer") {
+          window.open(WHATSAPP_GROUP_GIRLS, "_blank");
+        }
+      }, 1500);
+    }}
+    className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-4 text-white text-[15px] sm:text-base font-semibold"
+    style={{ background: theme.accentStrong }}
+  >
+    <Send size={16} />
+    Confirmar por WhatsApp
+  </button>
+
+  <a
+    href={RSVP_FORM_URL}
+    target="_blank"
+    rel="noreferrer"
+    className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-4 text-[15px] sm:text-base font-semibold"
+    style={{
+      background: theme.cardStrong,
+      border: `1px solid ${theme.line}`,
+    }}
+  >
+    <Utensils size={16} />
+    Abrir formulario RSVP
+  </a>
+</div>
+                  <p className="mt-4 text-sm leading-6" style={{ color: theme.textSoft }}>
+                    Reemplazá el link del formulario cuando lo tengas conectado a Google Forms, Sheets o la opción que prefieras.
+                  </p>
+                </div>
+              </div>
+            </Card>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* FAQs */}
+      <section className="px-4 sm:px-6 pb-24 sm:pb-28">
+        <Reveal>
+          <div className="max-w-7xl mx-auto">
+            <SectionHeader
+              eyebrow="Preguntas frecuentes"
+              title="Para que nadie tenga que adivinar nada"
+              text="Acá dejamos resueltas las dudas más comunes para que todo sea más simple."
+              theme={theme}
+            />
+            <div className="mt-10 grid lg:grid-cols-2 gap-4">
+              {faqs.map((item) => (
+                <FAQItem key={item.q} item={item} theme={theme} />
               ))}
             </div>
-          </GlassCard>
-        </div>
-      </section>
-
-      <section className="px-5 md:px-8 pt-8 pb-24">
-        <div className="max-w-7xl mx-auto">
-          <GlassCard theme={theme} className="rounded-[38px] p-8 md:p-10 lg:p-14 text-center overflow-hidden relative">
-            <div className="absolute inset-0 opacity-20" style={{ background: `radial-gradient(circle at top, ${theme.accent}, transparent 45%)` }} />
-            <div className="relative z-10">
-              <p className="uppercase tracking-[0.35em] text-xs md:text-sm opacity-70 font-sans">Con mucho amor</p>
-              <h2 className="mt-5 text-5xl md:text-7xl font-serif leading-[0.95]">Los esperamos</h2>
-              <p className="mt-5 max-w-2xl mx-auto text-base md:text-lg leading-8 opacity-80 font-sans">
-                Gracias por ser parte de nuestra historia. Queremos que esta invitación no solo informe, sino que haga sentir desde ahora lo especial que va a ser ese día.
-              </p>
-              <div className="mt-8 flex flex-wrap justify-center gap-3 font-sans">
-                <a href="#rsvp" className="rounded-full px-6 py-3.5 text-white shadow-lg" style={{ background: theme.accent2 }}>
-                  Confirmar asistencia
-                </a>
-                <a href={MAP_URL} target="_blank" rel="noreferrer" className="rounded-full px-6 py-3.5" style={{ background: theme.card, border: `1px solid ${theme.border}` }}>
-                  Cómo llegar
-                </a>
-              </div>
-            </div>
-          </GlassCard>
-        </div>
-      </section>
-      {opened && (
-        <>
-          <div className="fixed bottom-6 right-6 z-50">
-            <button
-              onClick={() => {
-                const next = !musicOn;
-                setMusicOn(next);
-                if (audioFallback) {
-                  if (next) startPad(); else stopPad();
-                } else {
-                  const audio = audioRef.current;
-                  if (audio) {
-                    try {
-                      if (next) {
-                        audio.volume = 0.15;
-                        const p = audio.play();
-                        if (p && typeof p.then === 'function') p.catch(() => {});
-                      } else {
-                        audio.pause();
-                      }
-                    } catch (e) {}
-                  }
-                }
-              }}
-              aria-label={musicOn ? "Pausar música" : "Reproducir música"}
-              title={musicOn ? "Pausar música" : "Reproducir música"}
-              className="w-12 h-12 rounded-full flex items-center justify-center shadow-lg bg-white/90"
-            >
-              <Music4 size={18} />
-            </button>
           </div>
+        </Reveal>
+      </section>
 
-          {audioErrorMessage ? (
-            <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-black/60 text-white px-4 py-2 rounded-md">
-              {audioErrorMessage}
-            </div>
-          ) : null}
-        </>
-      )}
+      {/* Sección final con llamada a la acción */}
+      <section className="px-4 sm:px-6 pb-28 sm:pb-20">
+        <Reveal>
+          <div className="max-w-7xl mx-auto">
+            <Card theme={theme} className="relative overflow-hidden grain p-8 sm:p-10 lg:p-14 text-center">
+              <div
+                className="absolute inset-0 opacity-70"
+                style={{
+                  background: `radial-gradient(circle at top, ${theme.accentSoft}, transparent 42%)`,
+                }}
+              />
+              <div className="relative z-10">
+                <p
+                  className="uppercase tracking-[0.35em] text-[11px] sm:text-xs"
+                  style={{ color: theme.textSoft }}
+                >
+                  Con mucho amor
+                </p>
+                <h2 className="mt-4 text-[36px] sm:text-[48px] md:text-[68px] leading-[0.94] font-serif">
+                  Los esperamos
+                </h2>
+                <p
+                  className="mt-4 max-w-2xl mx-auto text-[15px] sm:text-lg leading-7 sm:leading-8"
+                  style={{ color: theme.textSoft }}
+                >
+                  Gracias por ser parte de nuestra historia. Más que una web, queríamos que esto se sintiera como una invitación hecha con cariño.
+                </p>
+                <div className="mt-8 flex flex-col sm:flex-row justify-center gap-3">
+                  <a
+                    href="#rsvp"
+                    className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-4 text-white text-[15px] sm:text-base font-semibold"
+                    style={{ background: theme.accentStrong }}
+                  >
+                    <Sparkles size={16} /> Confirmar asistencia
+                  </a>
+                  <a
+                    href={MAP_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-4 text-[15px] sm:text-base font-semibold"
+                    style={{
+                      background: theme.cardStrong,
+                      border: `1px solid ${theme.line}`,
+                    }}
+                  >
+                    <MapPin size={16} /> Cómo llegar
+                  </a>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* Botón fijo para móviles */}
+      <div className="fixed bottom-0 inset-x-0 z-50 sm:hidden p-3">
+        <a
+          href="#rsvp"
+          className="w-full rounded-full px-6 py-4 text-center text-white font-semibold flex items-center justify-center gap-2 shadow-[0_20px_50px_rgba(0,0,0,0.22)]"
+          style={{
+            background: theme.accentStrong,
+          }}
+        >
+          <Sparkles size={16} /> Confirmar asistencia
+        </a>
+      </div>
     </div>
   );
 }
