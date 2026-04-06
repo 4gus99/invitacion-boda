@@ -810,7 +810,7 @@ useEffect(() => {
           style={{ zIndex: 8, opacity: 0.9 }}
         >
           {[
-            ...Array.from({ length: 15 }).map((_, i) => ({
+            ...Array.from({ length: 10 }).map((_, i) => ({
               id: `primera-${i}`,
               left: `${(i * 17) % 100}%`,
               duration: `${10 + (i % 8) * 2}s`,
@@ -818,7 +818,7 @@ useEffect(() => {
               drift: `${-40 + (i % 7) * 14}px`,
               scale: `${0.65 + (i % 5) * 0.16}`,
             })),
-            ...Array.from({ length: 10 }).map((_, i) => ({
+            ...Array.from({ length: 5 }).map((_, i) => ({
               id: `segunda-${i}`,
               left: `${(i * 19 + 7) % 100}%`,
               duration: `${12 + (i % 7) * 2}s`,
@@ -826,7 +826,7 @@ useEffect(() => {
               drift: `${-34 + (i % 6) * 12}px`,
               scale: `${0.62 + (i % 4) * 0.15}`,
             })),
-            ...Array.from({ length: 6 }).map((_, i) => ({
+            ...Array.from({ length: 3 }).map((_, i) => ({
               id: `tercera-${i}`,
               left: `${(i * 23 + 11) % 100}%`,
               duration: `${14 + (i % 6) * 2}s`,
