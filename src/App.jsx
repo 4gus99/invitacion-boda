@@ -705,7 +705,7 @@ useEffect(() => {
     : "Ninguna elegida";
 
   return encodeURIComponent(
-    `Hola 💛 Confirmo datos para la boda de Rodo y Vicky.\n\nNombre: ${form.nombre || "-"}\nAsistencia: ${form.asistencia}\nGénero: ${form.genero || "-"}\nInvitación: individual (1 persona)\nRestricciones alimentarias: ${form.restricciones || "Ninguna"}\nCanción sugerida: ${form.cancion || "Ninguna"}\nActividad principal: ${actividadElegida}\nSendero a Cerro Arco: ${form.senderoCerroArco}\nMensaje: ${form.mensaje || "-"}`
+    `Hola, confirmo datos para la boda de Rodo y Vicky.\n\nNombre: ${form.nombre || "-"}\nAsistencia: ${form.asistencia}\nGénero: ${form.genero || "-"}\nRestricciones alimentarias: ${form.restricciones || "Ninguna"}\nCanción sugerida: ${form.cancion || "Ninguna"}\nActividad principal: ${actividadElegida}\nSendero a Cerro Arco: ${form.senderoCerroArco}\nMensaje: ${form.mensaje || "-"}`
   );
 }, [form]);
 
@@ -833,47 +833,58 @@ useEffect(() => {
       </header>
 
       {/* Hero */}
-     <section
+      <section
         ref={heroRef}
-        className="relative min-h-screen pt-20 sm:pt-28 pb-14 sm:pb-20 px-4 sm:px-6 overflow-hidden"
+        className="relative min-h-screen px-4 sm:px-6 pt-20 sm:pt-28 pb-3 sm:pb-6 overflow-hidden"
       >
         <div
           className="absolute inset-0"
           style={{
             backgroundImage: "url(/images/wedding/aero.jpg)",
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            backgroundSize: "cover",
+            backgroundPosition: "center",
           }}
         />
         <div
           className="absolute inset-0"
           style={{ backgroundColor: theme.heroOverlay }}
         />
-       <div className="relative z-10 max-w-7xl mx-auto flex items-start min-h-[calc(100vh-7rem)] pt-0 sm:pt-4">
+
+        <div className="relative z-10 max-w-7xl mx-auto min-h-[calc(100svh-6rem)] flex flex-col justify-between">
           <Reveal>
-            <div className="max-w-3xl">
+            <div className="max-w-3xl pt-2 sm:pt-4">
               <h1 className="mt-4 font-serif text-[52px] leading-[0.9] tracking-[0.02em] sm:text-[78px] md:text-[118px] text-white font-[600]">
                 Rodo & Vicky
               </h1>
+
               <p className="uppercase tracking-[0.35em] text-[11px] sm:text-xs text-white/70">
                 9 de enero · Mendoza
               </p>
+
               <p className="mt-4 max-w-xl text-[15px] sm:text-lg md:text-xl leading-7 sm:leading-8 text-white/82">
                 Un día para celebrar el amor, el vino y todo lo que queremos compartir con ustedes.
               </p>
-              <div className="mt-25 sm:mt-16 grid grid-cols-4 gap-2 sm:gap-4 max-w-[560px] justify-items-stretch">
+            </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.08}>
+            <div className="w-full pb-1 sm:pb-2">
+              <div className="grid grid-cols-4 gap-2 sm:gap-4 max-w-[560px] justify-items-stretch">
                 <CountBox label="Días" value={pad(countdown.days)} theme={theme} />
                 <CountBox label="Horas" value={pad(countdown.hours)} theme={theme} />
                 <CountBox label="Minutos" value={pad(countdown.minutes)} theme={theme} />
                 <CountBox label="Segundos" value={pad(countdown.seconds)} theme={theme} />
               </div>
-              <div className="mt-8 flex flex-col sm:flex-row gap-3">
+
+              <div className="mt-4 sm:mt-5 flex flex-col sm:flex-row gap-3">
                 <a
                   href="#rsvp"
                   className="inline-flex items-center justify-center rounded-full bg-white text-black px-6 py-4 text-[15px] sm:text-base font-semibold hover:scale-[1.02] transition-transform"
                 >
                   Confirmar asistencia
                 </a>
+
                 <a
                   href={MAP_URL}
                   target="_blank"
