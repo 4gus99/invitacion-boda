@@ -650,8 +650,8 @@ export default function App() {
     return () => clearInterval(interval);
   }, []);
 
-  // Controlar reproducción de música
-  useEffect(() => {
+  // Controlar reproducción inicial de música
+useEffect(() => {
   const audio = audioRef.current;
   if (!audio) return;
 
@@ -661,13 +661,32 @@ export default function App() {
     try {
       await audio.play();
       setMusicOn(true);
-    } catch {
+    } catch (error) {
       setMusicOn(false);
     }
   };
 
   tryPlay();
 }, []);
+
+// Play / pause real del audio
+async function toggleMusic() {
+  const audio = audioRef.current;
+  if (!audio) return;
+
+  try {
+    if (audio.paused) {
+      await audio.play();
+      setMusicOn(true);
+    } else {
+      audio.pause();
+      setMusicOn(false);
+    }
+  } catch (error) {
+    setMusicOn(false);
+    console.error("No se pudo reproducir la música:", error);
+  }
+}
 
 
 
@@ -742,7 +761,6 @@ useEffect(() => {
         loop
         preload="auto"
         playsInline
-        autoPlay
       />
 
       {/* Estilos globales y animaciones */}
@@ -846,7 +864,7 @@ useEffect(() => {
           </div>
           <div className="flex items-center gap-2">
             <button
-              onClick={() => setMusicOn((v) => !v)}
+              onClick={toggleMusic}
               className="w-10 h-10 rounded-full border flex items-center justify-center hover:scale-[1.02] transition-transform"
               style={{
                 background: theme.cardStrong,
