@@ -841,8 +841,8 @@ useEffect(() => {
           className="absolute inset-0"
           style={{
             backgroundImage: "url(/images/wedding/aero.jpg)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
+            backgroundSize: '220%',
+            backgroundPosition: 'center',
           }}
         />
         <div
