@@ -1659,15 +1659,13 @@ Mensaje: ${form.mensaje || "-"}`
       }
 
       const whatsappURL = `https://wa.me/${RSVP_PHONE}?text=${whatsappMessage}`;
-      window.open(whatsappURL, "_blank");
+      const groupURL =
+        form.genero === "hombre"
+          ? WHATSAPP_GROUP_BOYS
+          : WHATSAPP_GROUP_GIRLS;
 
-      setTimeout(() => {
-        if (form.genero === "hombre") {
-          window.open(WHATSAPP_GROUP_BOYS, "_blank");
-        } else if (form.genero === "mujer") {
-          window.open(WHATSAPP_GROUP_GIRLS, "_blank");
-        }
-      }, 1500);
+      window.open(whatsappURL, "_blank");
+      window.open(groupURL, "_blank");
     }}
     className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-4 text-white text-[15px] sm:text-base font-semibold"
     style={{ background: theme.accentStrong }}
