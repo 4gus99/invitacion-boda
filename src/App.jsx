@@ -26,15 +26,11 @@ import {
 const EVENT_DATE = new Date("2027-01-09T11:00:00");
 
 // Datos de contacto. Reemplazar con valores reales antes de publicar.
-const RSVP_PHONE = "5492901309424";
+const RSVP_PHONE_BRIDE = "5492901309424";
+const RSVP_PHONE_GROOM = "5492901403076";
 const MAP_URL =
   "https://www.google.com/maps/place/Caba%C3%B1as+Pacar%C3%AD+Tamp%C3%BA/@-32.8533001,-68.8958719,3a,75y,90t/data=!3m8!1e2!3m6!1sAF1QipOR1aDQGhlCQQATDaaT2c9CIsDR8BBy4QFee2Ba!2e10!3e12!6shttps:%2F%2Flh3.googleusercontent.com%2Fp%2FAF1QipOR1aDQGhlCQQATDaaT2c9CIsDR8BBy4QFee2Ba%3Dw203-h152-k-no!7i2240!8i1680!4m10!3m9!1s0x967e08060b4dc929:0xf27b0a8b70ae5093!5m2!4m1!1i2!8m2!3d-32.853288!4d-68.8956999!10e5!16s%2Fg%2F11b6dh6xkp!18m1!1e1?entry=ttu&g_ep=EgoyMDI2MDQwMS4wIKXMDSoASAFQAw%3D%3D";
 const MUSIC_URL = "/music/musica.mp3";
-const WHATSAPP_GROUP_BOYS =
-  "https://chat.whatsapp.com/KCiORDv1gg649f8Go7SGO9?mode=gi_t";
-
-const WHATSAPP_GROUP_GIRLS =
-  "https://chat.whatsapp.com/HjmP9uVvbfk9BFc2BzdAFd?mode=gi_t";
 // Paleta única inspirada en la primera versión de la página (lila seda)
 const theme = {
   name: "Lila Seda",
@@ -189,7 +185,7 @@ const details = [
   {
     icon: Shirt,
     title: "Dress code",
-    text: "Elegante de día · tonos suaves, tierra, vino, nude o negro",
+    text: "Elegante de día · tonos nude, pasteles, beige y suaves (lila, lavanda, oliva)",
   },
 ];
 
@@ -240,11 +236,6 @@ const stayInfo = [
     text: "El hospedaje está incluido en Cabañas Pacarí Tampú. El check-in será el 12 de enero y la despedida el 16 de enero.",
   },
   {
-    icon: CarTaxiFront,
-    title: "Traslados",
-    text: "Recomendamos alojarse cerca de Luján de Cuyo. Más adelante confirmaremos traslados.",
-  },
-  {
     icon: CloudSun,
     title: "Clima",
     text: "Enero en Mendoza suele ser cálido. Traé lentes, protector solar y calzado cómodo.",
@@ -252,10 +243,11 @@ const stayInfo = [
 ];
 
 const transferData = [
-  { label: "Alias", value: "RODO.VICKY.BODA" },
-  { label: "CBU", value: "0000003100000000000001" },
-  { label: "Titular", value: "Rodo y Vicky" },
-  { label: "Banco", value: "Banco a confirmar" },
+  { label: "CBU", value: "0170299840000034075432" },
+  { label: "Alias", value: "CABO.BECADO.ORDEN" },
+  { label: "Número de cuenta", value: "299-340754/3" },
+  { label: "Banco", value: "BBVA francés" },
+  { label: "Tipo de cuenta", value: "Caja de ahorro" },
 ];
 
 const faqs = [
@@ -280,16 +272,16 @@ const faqs = [
     a: "Si, aunque cada cabaña dispone de cocina para mayor comodidad, el alojamiento no incluye desayuno ni restaurante,",
   },
   {
-    q: "¿Habrá traslado desde o hacia el aeropuerto?",
-    a: "No, el alojamiento no cuenta con servicio de traslado, por lo que recomendamos organizarlo con anticipación.",
-  },
-  {
     q: "¿Puedo informar restricciones alimentarias?",
     a: "Sí. Al confirmar asistencia podrán indicarnos alergias, intolerancias o preferencias alimentarias.",
   },
   {
     q: "¿Cómo será el dress code?",
-    a: "Elegante de día, en tonos neutros y cálidos como beige, arena, nude o tierra.",
+    a: "Elegante de día, en tonos nude, pasteles, beige y suaves, por ejemplo lila, lavanda u oliva.",
+  },
+  {
+    q: "¿Habrá traslado desde o hacia el aeropuerto?",
+    a: "No, el alojamiento no cuenta con servicio de traslado, por lo que recomendamos organizarlo con anticipación.",
   },
   {
     q: "¿Qué calzado conviene llevar?",
@@ -1153,7 +1145,7 @@ Mensaje: ${form.mensaje || "-"}`
                     Sí
                   </p>
                   <ul className="mt-3 space-y-2 text-[15px] leading-7">
-                    <li>• Tonos nude, tierra, vino, negro, oliva o suaves</li>
+                    <li>• Tonos nude, pasteles, beige y suaves (por ejemplo: lila, lavanda, oliva)</li>
                     <li>• Telas livianas y cortes elegantes</li>
                     <li>• Calzado cómodo para exterior</li>
                   </ul>
@@ -1554,7 +1546,7 @@ Mensaje: ${form.mensaje || "-"}`
                       </span>
                       <select
                         value={form.genero}
-                        onChange={(e) => setForm({ ...form, genero: e.target.value })}
+                        onChange={(e) => setForm((prev) => ({ ...prev, genero: e.target.value }))}
                         className="w-full rounded-[18px] px-4 py-3.5 outline-none"
                         style={{ background: theme.cardStrong, border: `1px solid ${theme.line}` }}
                       >
@@ -1654,18 +1646,18 @@ Mensaje: ${form.mensaje || "-"}`
     type="button"
     onClick={() => {
       if (!form.genero) {
-        alert("Por favor seleccioná tu género antes de confirmar.");
+        alert("Por favor seleccioná si sos hombre o mujer antes de confirmar.");
         return;
       }
 
-      const whatsappURL = `https://wa.me/${RSVP_PHONE}?text=${whatsappMessage}`;
-      const groupURL =
+      const targetPhone =
         form.genero === "hombre"
-          ? WHATSAPP_GROUP_BOYS
-          : WHATSAPP_GROUP_GIRLS;
+          ? RSVP_PHONE_GROOM
+          : RSVP_PHONE_BRIDE;
+
+      const whatsappURL = `https://wa.me/${targetPhone}?text=${whatsappMessage}`;
 
       window.open(whatsappURL, "_blank");
-      window.open(groupURL, "_blank");
     }}
     className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-4 text-white text-[15px] sm:text-base font-semibold"
     style={{ background: theme.accentStrong }}
