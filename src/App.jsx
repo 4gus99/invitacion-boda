@@ -269,7 +269,7 @@ const faqs = [
   },
   {
     q: "¿El hospedaje incluye comidas?",
-    a: "Si, aunque cada cabaña dispone de cocina para mayor comodidad, el alojamiento no incluye desayuno ni restaurante,",
+    a: "Si, aunque cada cabaña dispone de cocina para mayor comodidad, el alojamiento no incluye desayuno ni restaurante.",
   },
   {
     q: "¿Puedo informar restricciones alimentarias?",
