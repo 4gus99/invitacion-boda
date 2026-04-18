@@ -929,7 +929,7 @@ Mensaje: ${form.mensaje || "-"}`
             </h1>
 
             <p className="uppercase tracking-[0.35em] text-[11px] sm:text-xs text-white/70">
-              9 de enero · Mendoza
+              12 de enero · Mendoza
             </p>
           </div>
           </Reveal>
