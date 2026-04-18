@@ -1686,7 +1686,7 @@ Mensaje: ${form.mensaje || "-"}`
     style={{ background: theme.accentStrong }}
   >
     <Send size={16} />
-    Confirmar asistencia por WhatsApp
+    Confirmar asistencia
   </button>
 </div>
                  
