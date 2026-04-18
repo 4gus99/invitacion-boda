@@ -630,7 +630,9 @@ export default function App() {
   });
   const audioRef = useRef(null);
   const heroRef = useRef(null);
+  const rsvpRef = useRef(null);
   const [showMobileCta, setShowMobileCta] = useState(false);
+
 
  
 
@@ -691,22 +693,43 @@ async function toggleMusic() {
   }, [copied]);
 
   // Mostrar botón fijo mobile solo cuando el hero deja de estar visible
+// Mostrar botón fijo mobile solo cuando el hero ya no se ve
+// y la sección RSVP todavía no entró en pantalla
 useEffect(() => {
   const heroEl = heroRef.current;
-  if (!heroEl) return;
+  const rsvpEl = rsvpRef.current;
+  if (!heroEl || !rsvpEl) return;
 
-  const observer = new IntersectionObserver(
+  let heroVisible = true;
+  let rsvpVisible = false;
+
+  const updateCta = () => {
+    setShowMobileCta(!heroVisible && !rsvpVisible);
+  };
+
+  const heroObserver = new IntersectionObserver(
     ([entry]) => {
-      setShowMobileCta(!entry.isIntersecting);
+      heroVisible = entry.isIntersecting;
+      updateCta();
     },
-    {
-      threshold: 0.15,
-    }
+    { threshold: 0.15 }
   );
 
-  observer.observe(heroEl);
+  const rsvpObserver = new IntersectionObserver(
+    ([entry]) => {
+      rsvpVisible = entry.isIntersecting;
+      updateCta();
+    },
+    { threshold: 0.15 }
+  );
 
-  return () => observer.disconnect();
+  heroObserver.observe(heroEl);
+  rsvpObserver.observe(rsvpEl);
+
+  return () => {
+    heroObserver.disconnect();
+    rsvpObserver.disconnect();
+  };
 }, []);
 
   // Componer mensaje para WhatsApp
@@ -1487,7 +1510,7 @@ Mensaje: ${form.mensaje || "-"}`
       </section>
 
       {/* RSVP */}
-      <section className="px-4 sm:px-6 pb-14 sm:pb-20" id="rsvp">
+      <section className="px-4 sm:px-6 pb-14 sm:pb-20" id="rsvp" ref={rsvpRef}>
         <div className="max-w-7xl mx-auto">
           <Reveal>
             <Card theme={theme} className="overflow-hidden">
@@ -1663,7 +1686,7 @@ Mensaje: ${form.mensaje || "-"}`
     style={{ background: theme.accentStrong }}
   >
     <Send size={16} />
-    Confirmar por WhatsApp
+    Confirmar asistencia por WhatsApp
   </button>
 </div>
                  
@@ -1721,13 +1744,7 @@ Mensaje: ${form.mensaje || "-"}`
                   Gracias por ser parte de nuestra historia. Más que una web, queríamos que esto se sintiera como una invitación hecha con cariño.
                 </p>
                 <div className="mt-8 flex flex-col sm:flex-row justify-center gap-3">
-                  <a
-                    href="#rsvp"
-                    className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-4 text-white text-[15px] sm:text-base font-semibold"
-                    style={{ background: theme.accentStrong }}
-                  >
-                    <Sparkles size={16} /> Confirmar asistencia
-                  </a>
+                  
                   <a
                     href={MAP_URL}
                     target="_blank"
